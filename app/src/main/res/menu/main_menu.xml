@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/profile"
+        android:checked="false"
+        android:icon="@null"
+        android:title="@string/profile" />
+    <item android:id="@+id/activity_main"
+        android:icon="@null"
+        android:title="@string/title_activity_main" />
+    <item android:id="@+id/previous_rides"
+        android:icon="@null"
+        android:title="@string/previous_rides" />
+    <item android:id="@+id/guardians"
+        android:icon="@null"
+        android:title="@string/guardians" />
+    <item android:id="@+id/settings"
+        android:icon="@null"
+        android:title="@string/settings" />
+</menu>
