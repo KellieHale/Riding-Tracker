@@ -15,7 +15,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="#0000FF"
+            android:background="#FF0000"
             app:popupTheme="@style/Theme.RidingTracker.PopupOverlay" />
 
 
