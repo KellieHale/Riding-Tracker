@@ -6,7 +6,7 @@
         android:id="@+id/activity_main"
         android:icon="@android:drawable/ic_dialog_map"
         android:iconTint="#FFFFFF"
-        android:title="@string/title_activity_main"
+        android:title="@string/current_ride"
         android:visible="true" />
     <item
         android:id="@+id/previous_rides"
