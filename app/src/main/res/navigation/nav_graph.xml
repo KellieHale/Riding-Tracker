@@ -3,26 +3,30 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
+    app:startDestination="@id/currentRideFragment">
 
     <fragment
-        android:id="@+id/FirstFragment"
-        android:name="com.riding.tracker.FirstFragment"
-        android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first">
+        android:id="@+id/currentRideFragment"
+        android:name="com.riding.tracker.CurrentRide.CurrentRideFragment"
+        android:label="Current Ride"/>
 
-        <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
-    </fragment>
     <fragment
-        android:id="@+id/SecondFragment"
-        android:name="com.riding.tracker.SecondFragment"
-        android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second">
+        android:id="@+id/guardiansFragment"
+        android:name="com.riding.tracker.guardians.GuardiansFragment"
+        android:label="Guardians"/>
 
-        <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
-    </fragment>
+    <fragment
+        android:id="@+id/previousRidesFragment"
+        android:name="com.riding.tracker.previousRides.PreviousRidesFragment"
+        android:label="Previous Rides"/>
+
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.riding.tracker.profile.ProfileFragment"
+        android:label="Profile"/>
+
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.riding.tracker.settings.SettingsFragment"
+        android:label="Settings"/>
 </navigation>

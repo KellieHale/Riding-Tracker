@@ -3,13 +3,13 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/activity_main"
+        android:id="@id/currentRideFragment"
         android:icon="@android:drawable/ic_dialog_map"
         android:iconTint="#FFFFFF"
         android:title="@string/current_ride"
         android:visible="true" />
     <item
-        android:id="@+id/previous_rides"
+        android:id="@id/previousRidesFragment"
         android:checkable="false"
         android:checked="false"
         android:icon="@android:drawable/ic_menu_mylocation"
@@ -18,14 +18,14 @@
         android:visible="true"
         app:showAsAction="withText" />
     <item
-        android:id="@+id/guardians"
+        android:id="@id/guardiansFragment"
         android:enabled="true"
         android:icon="@android:drawable/ic_menu_add"
         android:iconTint="#FFFFFF"
         android:title="@string/guardians"
         app:showAsAction="withText" />
     <item
-        android:id="@+id/profile"
+        android:id="@id/profileFragment"
         android:checked="false"
         android:enabled="true"
         android:icon="@android:drawable/gallery_thumb"
@@ -33,7 +33,7 @@
         android:title="@string/profile"
         app:showAsAction="withText" />
     <item
-        android:id="@+id/settings"
+        android:id="@id/settingsFragment"
         android:enabled="true"
         android:icon="@android:drawable/ic_menu_manage"
         android:iconTint="#FFFFFF"

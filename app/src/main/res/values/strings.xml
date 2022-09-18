@@ -1,14 +1,17 @@
 <resources>
+    <string name="address"> profile_fragment</string>
     <string name="app_name">Riding Tracker</string>
     <string name="title_activity_main">MainActivity</string>
     <!-- Strings used for fragments for navigation -->
     <string name="current_ride">Current Ride</string>
+    <string name="email">profile_fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
     <string name="first_fragment_label">First Fragment</string>
     <string name="guardians">Guardians</string>
     <string name="hello_first_fragment">Riding Tracker</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="phone">profile_fragment</string>
     <string name="previous_rides">Previous Rides</string>
     <string name="profile">Profile</string>
     <string name="settings">Settings</string>
