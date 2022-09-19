@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -7,23 +8,24 @@
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_margin="16dp"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+        android:orientation="vertical">
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:divider="@drawable/empty_divider"
+            android:gravity="center_vertical"
             android:orientation="horizontal"
             android:padding="16dp"
-            android:showDividers="middle"
-            android:divider="@drawable/empty_divider"
-            android:gravity="center_vertical">
+            android:showDividers="middle">
 
             <ImageView
                 android:id="@+id/profile_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:visibility="visible"
                 tools:srcCompat="@tools:sample/avatars" />
 
             <TextView
@@ -36,10 +38,15 @@
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray" />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/email"/>
+            android:text="@string/email" />
 
         <TextView
             android:id="@+id/email_address"
@@ -47,6 +54,11 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:text="bandfrog15@gmail.com" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray" />
 
         <TextView
             android:layout_width="match_parent"
@@ -59,6 +71,11 @@
             android:layout_height="wrap_content"
             android:text="949-577-3860" />
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray" />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -68,10 +85,16 @@
             android:id="@+id/full_address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:maxLines="2"
             android:ellipsize="none"
+            android:maxLines="2"
             android:text="7609 Tangerine Knoll Loop Winter Garden, FL 34787"
             android:textSize="16sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray" />
+
     </androidx.appcompat.widget.LinearLayoutCompat>
 
 </ScrollView>
