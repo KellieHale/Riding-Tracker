@@ -4,6 +4,7 @@
     <string name="title_activity_main">MainActivity</string>
     <!-- Strings used for fragments for navigation -->
     <string name="current_ride">Current Ride</string>
+    <string name="edit_profile">Edit Profile</string>
     <string name="email">profile_fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>

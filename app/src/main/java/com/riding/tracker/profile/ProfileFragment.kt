@@ -20,6 +20,7 @@ class ProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         contentView = inflater.inflate(R.layout.profile_fragment, container, false)
+        setHasOptionsMenu(true)
         return contentView
     }
 
@@ -27,5 +28,18 @@ class ProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.profile)
+
+    }
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.edit_settings, menu)
+    }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.edit_profile -> {
+                // navigate to settings screen
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 }
