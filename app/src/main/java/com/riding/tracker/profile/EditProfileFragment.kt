@@ -16,7 +16,7 @@ class EditProfileFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        contentView = inflater.inflate(R.layout.profile_fragment, container, false)
+        contentView = inflater.inflate(R.layout.edit_profile_fragment, container, false)
         setHasOptionsMenu(true)
         return contentView
     }

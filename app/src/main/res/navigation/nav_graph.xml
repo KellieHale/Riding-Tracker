@@ -22,10 +22,17 @@
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.riding.tracker.profile.ProfileFragment"
-        android:label="Profile"/>
-
+        android:label="Profile">
+        <action
+            android:id="@+id/startEditProfileFragment"
+            app:destination="@id/editProfileFragment" />
+    </fragment>
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.riding.tracker.settings.SettingsFragment"
         android:label="Settings"/>
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.riding.tracker.profile.EditProfileFragment"
+        android:label="EditProfileFragment"/>
 </navigation>
