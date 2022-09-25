@@ -26,7 +26,6 @@
                 android:id="@+id/profile_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:visibility="visible"
                 tools:srcCompat="@tools:sample/avatars" />
 
             <TextView
@@ -34,7 +33,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:text="Kellie Hale" />
+                android:text="@string/kellie_hale" />
 
 
         </androidx.appcompat.widget.LinearLayoutCompat>
@@ -54,7 +53,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:text="bandfrog15@gmail.com" />
+            android:text="@string/bandfrog15" />
 
         <View
             android:layout_width="match_parent"
@@ -70,7 +69,7 @@
             android:id="@+id/phone_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="949-577-3860" />
+            android:text="@string/phone_number" />
 
         <View
             android:layout_width="match_parent"
@@ -88,7 +87,7 @@
             android:layout_height="wrap_content"
             android:ellipsize="none"
             android:maxLines="2"
-            android:text="7609 Tangerine Knoll Loop Winter Garden, FL 34787"
+            android:text="@string/full_address"
             android:textSize="16sp" />
 
         <View
