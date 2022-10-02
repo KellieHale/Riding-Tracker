@@ -33,8 +33,8 @@ class EditProfileFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId){
-            R.id.profileFragment -> {
-                findNavController().navigate(R.id.startProfileFragment)
+            R.id.save_button -> {
+                findNavController().popBackStack()
                 true
             }
             else -> super.onOptionsItemSelected(item)

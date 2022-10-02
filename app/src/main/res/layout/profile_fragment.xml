@@ -33,7 +33,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:text="@string/kellie_hale" />
+                android:text="@string/kellie_hale"
+                android:textSize="20sp"
+                android:textStyle="bold|italic" />
 
 
         </androidx.appcompat.widget.LinearLayoutCompat>
@@ -46,7 +48,9 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/email" />
+            android:text="@string/email"
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/email_address"
@@ -63,7 +67,9 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/phone" />
+            android:text="@string/phone"
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/phone_number"
@@ -79,7 +85,9 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/address" />
+            android:text="@string/address"
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/full_address"
