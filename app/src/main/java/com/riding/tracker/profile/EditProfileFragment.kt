@@ -1,11 +1,11 @@
 package com.riding.tracker.profile
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.riding.tracker.R
 
 class EditProfileFragment : Fragment() {
@@ -26,4 +26,19 @@ class EditProfileFragment : Fragment() {
 
         (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.edit_profile)
     }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.save_button, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId){
+            R.id.profileFragment -> {
+                findNavController().navigate(R.id.startProfileFragment)
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
 }

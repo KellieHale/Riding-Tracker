@@ -35,4 +35,7 @@
         android:id="@+id/editProfileFragment"
         android:name="com.riding.tracker.profile.EditProfileFragment"
         android:label="EditProfileFragment"/>
+        <action
+            android:id="@+id/startProfileFragment"
+            app:destination="@id/startProfileFragment"/>
 </navigation>
