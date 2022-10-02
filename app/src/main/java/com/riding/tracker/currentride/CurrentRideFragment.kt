@@ -1,4 +1,4 @@
-package com.riding.tracker.CurrentRide
+package com.riding.tracker.currentride
 
 import android.os.Bundle
 import android.view.LayoutInflater

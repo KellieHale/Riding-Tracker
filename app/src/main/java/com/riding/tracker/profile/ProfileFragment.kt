@@ -11,7 +11,9 @@ import androidx.fragment.app.findFragment
 import androidx.lifecycle.whenStarted
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.riding.tracker.MainActivity
 import com.riding.tracker.R
+import com.riding.tracker.roomdb.DatabaseHelper
 
 class ProfileFragment : Fragment() {
 

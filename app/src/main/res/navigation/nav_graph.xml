@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/currentRideFragment"
-        android:name="com.riding.tracker.CurrentRide.CurrentRideFragment"
+        android:name="com.riding.tracker.currentride.CurrentRideFragment"
         android:label="Current Ride"/>
 
     <fragment
@@ -16,7 +16,7 @@
 
     <fragment
         android:id="@+id/previousRidesFragment"
-        android:name="com.riding.tracker.previousRides.PreviousRidesFragment"
+        android:name="com.riding.tracker.previousrides.PreviousRidesFragment"
         android:label="Previous Rides"/>
 
     <fragment

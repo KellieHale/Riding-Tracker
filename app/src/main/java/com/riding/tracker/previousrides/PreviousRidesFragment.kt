@@ -1,4 +1,4 @@
-package com.riding.tracker.previousRides
+package com.riding.tracker.previousrides
 
 import android.os.Bundle
 import android.view.LayoutInflater
