@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.textfield.TextInputEditText
 import com.riding.tracker.MainActivity
 import com.riding.tracker.R
 import com.riding.tracker.roomdb.DatabaseHelper
@@ -46,7 +47,18 @@ class EditProfileFragment : Fragment() {
     }
 
     private fun saveProfile() {
-        DatabaseHelper.updateProfile("", "", "", "")
+
+        val emailAddressEditText = contentView.findViewById<TextInputEditText>(R.id.email_address)
+        val nameEditText = contentView.findViewById<TextInputEditText>(R.id.edit_name)
+        val phoneEditText = contentView.findViewById<TextInputEditText>(R.id.phone_number)
+        val addressEditText = contentView.findViewById<TextInputEditText>(R.id.full_address)
+
+        DatabaseHelper.updateProfile(
+            name = nameEditText.text.toString(),
+            emailAddress = emailAddressEditText.text.toString(),
+            phoneNumber = phoneEditText.text.toString(),
+            fullAddress = addressEditText.text.toString()
+        )
     }
 
 }

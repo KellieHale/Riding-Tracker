@@ -6,7 +6,7 @@ import androidx.room.OnConflictStrategy.REPLACE
 @Dao
 interface ProfileDao {
     @Query("SELECT * FROM profile WHERE profileId = :profileId")
-    fun getProfile(profileId: Int): Profile?
+    fun getProfile(profileId: Int = 1): Profile?
 
     @Update
     fun updateProfile(vararg profile: Profile)

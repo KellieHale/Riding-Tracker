@@ -1,8 +1,6 @@
 package com.riding.tracker.roomdb
 
 import android.content.Context
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy.REPLACE
 import androidx.room.Room
 import com.riding.tracker.roomdb.profile.Profile
 
@@ -20,7 +18,7 @@ object DatabaseHelper {
     }
 
     fun getProfile(): Profile? {
-        return db.profileDao().getProfile(1)
+        return db.profileDao().getProfile()
     }
 
     fun updateProfile(
