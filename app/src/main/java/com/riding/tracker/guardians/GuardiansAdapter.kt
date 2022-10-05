@@ -1,39 +1,46 @@
 package com.riding.tracker.guardians
 
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Switch
 import android.widget.TextView
+import androidx.appcompat.widget.SwitchCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.riding.tracker.R
 
-//-- class GuardiansAdapter(val guardians: List<Guardian>)
-class GuardiansAdapter : RecyclerView.Adapter<GuardiansAdapter.ViewHolder>() {
+class GuardiansAdapter(private val guardians: List<Guardian>) : RecyclerView.Adapter<GuardiansAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val nameTextView: TextView
-        val broadcastSwitch: Switch
+        val broadcastSwitch: SwitchCompat
+        val phoneTextView: TextView
+        val emailTextView: TextView
 
         init {
             nameTextView = itemView.findViewById(R.id.name_text_view)
             broadcastSwitch = itemView.findViewById(R.id.broadcastSwitch)
+            phoneTextView = itemView.findViewById(R.id.phone_text_view)
+            emailTextView = itemView.findViewById(R.id.email_text_view)
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        TODO("Not yet implemented")
-        //-- Inflate guardian_row.xml for each guardian
+        val inflater = LayoutInflater.from(parent.context)
+        val view = inflater.inflate(R.layout.guardian_row, parent, false)
+        return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        TODO("Not yet implemented")
-        //-- Get each guardian (val guardian = guardians[position])
-        //-- nameTextView.text = guardian.name
-        //-- broadcastSwitch.toggle = guardian.broadcast
+        val guardian = guardians[position]
+        holder.nameTextView.text = guardian.name
+        holder.broadcastSwitch.isChecked = guardian.broadcast
+        holder.phoneTextView.text = guardian.phoneNumber
+        holder.emailTextView.text = guardian.emailAddress
+
     }
 
     override fun getItemCount(): Int {
-        //-- return guardians.size
-        TODO("Not yet implemented")
+        return guardians.size
     }
 }

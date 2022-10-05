@@ -4,8 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Switch
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.riding.tracker.R
 
 class GuardiansFragment : Fragment() {
@@ -24,17 +28,27 @@ class GuardiansFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.guardians)
+        val recyclerView: RecyclerView = contentView.findViewById(R.id.guardians_recycler_view)
 
-        //-- Get your RecyclerView findViewById
-        //-- Create a Guardian data class
-        //-- data class Guardian (
-        //--    private val name: String
-        //--    private val broadcast: Boolean
-        //-- )
-        //-- Create a new copy of your GuardiansAdapter
-        //-- val adapter = GuardiansAdapter
-        //-- Bind adapter
-        //-- recyclerView.adapter = guardiansAdapter
+        val dummyGuardians = ArrayList<Guardian>()
+        dummyGuardians.add(
+            Guardian(
+                name = "Joshua Hale",
+                phoneNumber = "864-395-4095",
+                emailAddress = "joshua.kainoa.hale@gmail.com",
+                broadcast = true
+            )
+        )
+        dummyGuardians.add(
+            Guardian(
+                name = "Elsie Tracy",
+                phoneNumber = "707-227-0948",
+                emailAddress = "chef1emt@yahoo.com",
+                broadcast = true
+            )
+        )
 
+        recyclerView.layoutManager = LinearLayoutManager(context)
+        recyclerView.adapter = GuardiansAdapter(dummyGuardians)
     }
 }
