@@ -13,6 +13,10 @@
     <string name="previous">Previous</string>
     <string name="first_fragment_label">First Fragment</string>
     <string name="guardians">Guardians</string>
+    <string name="guardian_email">Guardian Email</string>
+    <string name="guardian_name">Guardian Name</string>
+    <string name="guardian_phone_number">Guardian Phone Number</string>
+
     <string name="hello_first_fragment">Riding Tracker</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="kellie_hale">Kellie Hale</string>
