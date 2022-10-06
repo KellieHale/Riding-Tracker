@@ -9,7 +9,7 @@
         android:id="@+id/guardians_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingActionButton"
@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:clickable="true"
         app:backgroundTint="@color/red"
-        app:srcCompat="@android:drawable/ic_input_add"
+        app:srcCompat="@drawable/add_person"
         tools:layout_editor_absoluteX="308dp"
         tools:layout_editor_absoluteY="624dp" />
 
