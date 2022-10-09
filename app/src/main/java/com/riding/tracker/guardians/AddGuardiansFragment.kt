@@ -29,27 +29,4 @@ class AddGuardiansFragment  : Fragment() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.save_button, menu)
     }
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId){
-            R.id.save_button -> {
-                saveGuardian()
-                findNavController().popBackStack()
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
-
-        private fun saveGuardian() {
-
-            val emailAddressEditText = contentView.findViewById<TextInputEditText>(R.id.email_address)
-            val nameEditText = contentView.findViewById<TextInputEditText>(R.id.edit_name)
-            val phoneEditText = contentView.findViewById<TextInputEditText>(R.id.phone_number)
-
-            DatabaseHelper.updateProfile(
-                name = nameEditText.text.toString(),
-                emailAddress = emailAddressEditText.text.toString(),
-                phoneNumber = phoneEditText.text.toString()
-            )
-        }
-
 }
