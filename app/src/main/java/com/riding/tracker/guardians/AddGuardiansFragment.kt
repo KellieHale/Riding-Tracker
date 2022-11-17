@@ -26,6 +26,30 @@ class AddGuardiansFragment  : Fragment() {
 
             (activity as AppCompatActivity).supportActionBar?.title = "Add Guardians"
         }
+
+    private fun saveGuardian() {
+        val guardianNameEditText = contentView.findViewById<TextInputEditText>(R.id.guardian_name)
+        val guardianPhoneEditText = contentView.findViewById<TextInputEditText>(R.id.guardian_phone)
+        val guardianEmailEditText = contentView.findViewById<TextInputEditText>(R.id.guardian_email)
+
+        DatabaseHelper.addGuardian(
+            name = guardianNameEditText.text.toString(),
+            phoneNumber = guardianPhoneEditText.text.toString(),
+            email = guardianEmailEditText.text.toString()
+        )
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.save_button -> {
+                saveGuardian()
+                findNavController().popBackStack()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.save_button, menu)
     }

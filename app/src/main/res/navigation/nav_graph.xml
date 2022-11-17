@@ -12,7 +12,11 @@
     <fragment
         android:id="@+id/guardiansFragment"
         android:name="com.riding.tracker.guardians.GuardiansFragment"
-        android:label="Guardians"/>
+        android:label="Guardians">
+        <action
+            android:id="@+id/startAddGuardiansFragment"
+            app:destination="@id/addGuardiansFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/previousRidesFragment"
@@ -34,8 +38,21 @@
     <fragment
         android:id="@+id/editProfileFragment"
         android:name="com.riding.tracker.profile.EditProfileFragment"
-        android:label="EditProfileFragment"/>
+        android:label="EditProfileFragment">
+        <action
+            android:id="@+id/action_editProfileFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </fragment>
         <action
             android:id="@+id/startProfileFragment"
             app:destination="@id/startProfileFragment"/>
+    <fragment
+        android:id="@+id/addGuardiansFragment"
+        android:name="com.riding.tracker.guardians.AddGuardiansFragment"
+        android:label="AddGuardiansFragment" >
+        <action
+            android:id="@+id/action_addGuardiansFragment_to_guardiansFragment"
+            app:destination="@id/guardiansFragment"/>
+
+    </fragment>
 </navigation>

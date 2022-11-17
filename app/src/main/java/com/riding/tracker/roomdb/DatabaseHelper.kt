@@ -2,6 +2,7 @@ package com.riding.tracker.roomdb
 
 import android.content.Context
 import androidx.room.Room
+import com.riding.tracker.roomdb.guardians.Guardian
 import com.riding.tracker.roomdb.profile.Profile
 
 object DatabaseHelper {
@@ -17,8 +18,8 @@ object DatabaseHelper {
             .build()
     }
 
-    fun getProfile(): Profile? {
-        return db.profileDao().getProfile()
+    fun getProfile(profileId: Int = 1): Profile? {
+        return db.profileDao().getProfile(profileId)
     }
 
     fun updateProfile(
@@ -36,5 +37,27 @@ object DatabaseHelper {
                 fullAddress
             )
         )
+    }
+    fun getGuardian(guardianId: Int): Guardian? {
+        return db.guardianDao().getGuardian(guardianId)
+    }
+
+    fun getAllGuardians(): List<Guardian> {
+        return db.guardianDao().getAllGuardians()
+    }
+
+    fun addGuardian(
+        name: String?,
+        phoneNumber: String?,
+        email: String?,
+        broadcast: Boolean = true
+    ) {
+        val guardian = Guardian(
+            name = name,
+            phoneNumber = phoneNumber,
+            emailAddress = email,
+            broadcast = broadcast
+        )
+        db.guardianDao().insert(guardian)
     }
 }

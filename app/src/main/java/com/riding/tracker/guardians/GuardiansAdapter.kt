@@ -3,11 +3,11 @@ package com.riding.tracker.guardians
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Switch
 import android.widget.TextView
 import androidx.appcompat.widget.SwitchCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.riding.tracker.R
+import com.riding.tracker.roomdb.guardians.Guardian
 
 class GuardiansAdapter(private val guardians: List<Guardian>) : RecyclerView.Adapter<GuardiansAdapter.ViewHolder>() {
 
