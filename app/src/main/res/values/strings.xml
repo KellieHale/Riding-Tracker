@@ -17,13 +17,13 @@
     <string name="guardian_email">Guardian Email</string>
     <string name="guardian_name">Guardian Name</string>
     <string name="guardian_phone_number">Guardian Phone Number</string>
-
     <string name="hello_first_fragment">Riding Tracker</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="import_contact">Import Contact</string>
     <string name="kellie_hale">Kellie Hale</string>
     <string name="name">Name</string>
     <string name="phone">Phone Number</string>
-    <string name="phone_number">949-577-3860</string>
+    <string name="phone_number">9495773860</string>
     <string name="previous_rides">Previous Rides</string>
     <string name="profile">Profile</string>
     <string name="save">Save</string>

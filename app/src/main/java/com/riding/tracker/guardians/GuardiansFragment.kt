@@ -4,7 +4,6 @@ package com.riding.tracker.guardians
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.AppCompatTextView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -37,6 +36,7 @@ class GuardiansFragment : Fragment() {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.add_guardian, menu)
+        inflater.inflate(R.menu.import_contact, menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem) : Boolean {
@@ -47,6 +47,6 @@ class GuardiansFragment : Fragment() {
             }
             else -> super.onOptionsItemSelected(item)
         }
-
     }
 }
+

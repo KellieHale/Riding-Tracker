@@ -1,5 +1,6 @@
 package com.riding.tracker.guardians
 
+
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
@@ -21,11 +22,12 @@ class AddGuardiansFragment  : Fragment() {
         setHasOptionsMenu(true)
         return contentView
     }
-        override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-            super.onViewCreated(view, savedInstanceState)
 
-            (activity as AppCompatActivity).supportActionBar?.title = "Add Guardians"
-        }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        (activity as AppCompatActivity).supportActionBar?.title = "Add Guardians"
+    }
 
     private fun saveGuardian() {
         val guardianNameEditText = contentView.findViewById<TextInputEditText>(R.id.guardian_name)
