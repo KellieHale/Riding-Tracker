@@ -5,6 +5,7 @@ import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
 import android.provider.ContactsContract
 import android.view.*
@@ -13,6 +14,7 @@ import androidx.activity.result.contract.ActivityResultContracts.RequestPermissi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.riding.tracker.R
@@ -49,13 +51,14 @@ class GuardiansFragment : Fragment() {
 
     private var resultLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            val data: Intent? = result.data
-
-
-
+            val data: Uri? = result.data?.data
+            data?.lastPathSegment?.let { id: String ->
+                getContactInformation(id)
+            }
             if (result.resultCode == Activity.RESULT_OK) {
                 // There are no request codes
-
+            } else {
+                showImportContactError()
             }
         }
 
@@ -73,7 +76,7 @@ class GuardiansFragment : Fragment() {
             if (isGranted) {
                 showContacts()
             } else {
-                showImportContactsError()
+                showContactsPermissionErrorDialog()
             }
         }
 
@@ -95,8 +98,19 @@ class GuardiansFragment : Fragment() {
         }
     }
 
-    private fun showImportContactsError() {
-        //-- Show Error Dialog
+    private fun showContactsPermissionErrorDialog() {
+        println("Import Contact Permission Denied.")
+        println("Must manually create Guardians or accept Permission.")
+        //-- Show Contacts Permission Error Dialog
+    }
+
+    private fun showImportContactError() {
+        println("Was not able to Import Contact.")
+        //-- Show Import Contact Error Dialog
+    }
+
+    private fun getContactInformation(id: String) {
+
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -105,7 +119,7 @@ class GuardiansFragment : Fragment() {
                 checkForContactsPermission()
             }
             R.id.add_guardian -> {
-//                findNavController().navigate(R.id.startAddGuardiansFragment)
+                findNavController().navigate(R.id.startAddGuardiansFragment)
 
             }
         }
