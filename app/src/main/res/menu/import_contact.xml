@@ -7,4 +7,9 @@
         android:iconTint="#000000"
         android:title="@string/import_contact"
         app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/add_guardian"
+        android:icon="@android:drawable/ic_menu_edit"
+        android:title="@string/add_guardian"
+        app:showAsAction="ifRoom" />
 </menu>

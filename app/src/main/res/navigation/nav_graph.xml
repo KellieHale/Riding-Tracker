@@ -53,6 +53,9 @@
         <action
             android:id="@+id/action_addGuardiansFragment_to_guardiansFragment"
             app:destination="@id/guardiansFragment"/>
+        <action
+            android:id="@+id/action_addGuardiansFragment_to_guardiansFragment2"
+            app:destination="@id/guardiansFragment" />
 
     </fragment>
 </navigation>
