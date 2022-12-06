@@ -2,12 +2,14 @@ package com.riding.tracker.guardians
 
 
 import android.Manifest
-import android.app.Activity
+import android.app.AlertDialog
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.database.Cursor
 import android.net.Uri
 import android.os.Bundle
 import android.provider.ContactsContract
+import android.util.Log
 import android.view.*
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.result.contract.ActivityResultContracts.RequestPermission
@@ -55,11 +57,6 @@ class GuardiansFragment : Fragment() {
             data?.lastPathSegment?.let { id: String ->
                 getContactInformation(id)
             }
-            if (result.resultCode == Activity.RESULT_OK) {
-                // There are no request codes
-            } else {
-                showImportContactError()
-            }
         }
 
     private fun showContacts() {
@@ -99,18 +96,62 @@ class GuardiansFragment : Fragment() {
     }
 
     private fun showContactsPermissionErrorDialog() {
-        println("Import Contact Permission Denied.")
-        println("Must manually create Guardians or accept Permission.")
-        //-- Show Contacts Permission Error Dialog
+        val builder = AlertDialog.Builder(requireContext())
+            builder.setTitle(getString(R.string.permission_denied))
+            builder.setMessage(getString(R.string.contacts_error_dialogue))
+            builder.setPositiveButton(getString(R.string.ok), null)
+        builder.show()
     }
 
     private fun showImportContactError() {
-        println("Was not able to Import Contact.")
-        //-- Show Import Contact Error Dialog
+        val builder = AlertDialog.Builder(requireContext())
+            builder.setTitle(getString(R.string.import_contact_error))
+            builder.setMessage(getString(R.string.import_contact_error_dialogue))
+            builder.setPositiveButton(getString(R.string.ok), null)
+        builder.show()
     }
 
     private fun getContactInformation(id: String) {
+        var cursor: Cursor?
+        var guardianName: String?
+        var guardianPhone: String?
+        var guardianEmail: String?
 
+
+        try {
+            cursor = activity?.contentResolver?.query(
+                ContactsContract.Data.CONTENT_URI,
+                null,
+                ContactsContract.Data.CONTACT_ID + "=?",
+                arrayOf(id),
+                null
+            )
+            if (cursor?.moveToFirst() == true) {
+                val columnIndex = cursor.getColumnIndex(ContactsContract.Data.DISPLAY_NAME)
+                if (columnIndex >= 0) {
+                    guardianName = cursor.getString(columnIndex)
+                    Log.i("GuardiansFragment", "Result: $guardianName")
+                }
+            }
+            if (cursor?.moveToFirst() == true) {
+                val columnIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DATA)
+                if (columnIndex >= 0) {
+                    guardianPhone = cursor.getString(columnIndex)
+                    Log.i("GuardiansFragment", "Result: $guardianPhone")
+                }
+            }
+            if(cursor?.moveToFirst() == true) {
+                val columnIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Email.DATA)
+                if (columnIndex >= 0) {
+                    guardianEmail = cursor.getString(columnIndex)
+                    Log.i("GuardiansFragment", "Result: $guardianEmail")
+                }
+            }
+
+            cursor?.close()
+        } catch (e: java.lang.Exception) {
+            e.printStackTrace()
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -120,7 +161,6 @@ class GuardiansFragment : Fragment() {
             }
             R.id.add_guardian -> {
                 findNavController().navigate(R.id.startAddGuardiansFragment)
-
             }
         }
         return super.onOptionsItemSelected(item)

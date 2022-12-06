@@ -5,11 +5,14 @@
     <string name="full_address">7609 Tangerine Knoll Loop Winter Garden, FL 34787</string>
     <string name="app_name">Riding Tracker</string>
     <string name="bandfrog15">Bandfrog15</string>
+    <string name="contacts_error_dialogue">You have denied the Import Conditions Permission. Manual entry of guardians is required unless permission is approved.</string>
     <string name="title_activity_main">MainActivity</string>
     <!-- Strings used for fragments for navigation -->
     <string name="current_ride">Current Ride</string>
     <string name="edit_profile">Edit Profile</string>
     <string name="email">Email</string>
+    <string name="import_contact_error">Import Contact Error</string>
+    <string name="import_contact_error_dialogue">There was an error in importing your contact. Please check the contact for Name, Phone Number, and Email. Thank you.</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
     <string name="first_fragment_label">First Fragment</string>
@@ -22,6 +25,8 @@
     <string name="import_contact">Import Contact</string>
     <string name="kellie_hale">Kellie Hale</string>
     <string name="name">Name</string>
+    <string name="ok">OK</string>
+    <string name="permission_denied">Permission Denied</string>
     <string name="phone">Phone Number</string>
     <string name="phone_number">9495773860</string>
     <string name="previous_rides">Previous Rides</string>
