@@ -2,6 +2,7 @@ package com.riding.tracker.guardians
 
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -9,6 +10,8 @@ import android.database.Cursor
 import android.net.Uri
 import android.os.Bundle
 import android.provider.ContactsContract
+import android.provider.ContactsContract.CommonDataKinds
+import android.provider.ContactsContract.Data
 import android.util.Log
 import android.view.*
 import androidx.activity.result.contract.ActivityResultContracts
@@ -24,7 +27,9 @@ import com.riding.tracker.roomdb.DatabaseHelper
 
 
 class GuardiansFragment : Fragment() {
+
     private lateinit var contentView: View
+    private lateinit var adapter: GuardiansAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,7 +49,8 @@ class GuardiansFragment : Fragment() {
 
         val guardians = DatabaseHelper.getAllGuardians()
         recyclerView.layoutManager = LinearLayoutManager(context)
-        recyclerView.adapter = GuardiansAdapter(guardians)
+        adapter = GuardiansAdapter(guardians)
+        recyclerView.adapter = adapter
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -111,47 +117,64 @@ class GuardiansFragment : Fragment() {
         builder.show()
     }
 
+    @SuppressLint("Range")
     private fun getContactInformation(id: String) {
         var cursor: Cursor?
-        var guardianName: String?
-        var guardianPhone: String?
-        var guardianEmail: String?
-
+        var guardianName  = ""
+        var guardianPhone = ""
+        var guardianEmail = ""
 
         try {
             cursor = activity?.contentResolver?.query(
-                ContactsContract.Data.CONTENT_URI,
+                Data.CONTENT_URI,
                 null,
-                ContactsContract.Data.CONTACT_ID + "=?",
+                Data.CONTACT_ID + "=?",
                 arrayOf(id),
                 null
             )
             if (cursor?.moveToFirst() == true) {
-                val columnIndex = cursor.getColumnIndex(ContactsContract.Data.DISPLAY_NAME)
-                if (columnIndex >= 0) {
-                    guardianName = cursor.getString(columnIndex)
-                    Log.i("GuardiansFragment", "Result: $guardianName")
+                val columnName = cursor.getColumnIndex(Data.DISPLAY_NAME)
+                val columnEmail = cursor.getColumnIndex(CommonDataKinds.Email.ADDRESS)
+                if (columnName >= 0) {
+                    guardianName = cursor.getString(columnName)
                 }
-            }
-            if (cursor?.moveToFirst() == true) {
-                val columnIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DATA)
-                if (columnIndex >= 0) {
-                    guardianPhone = cursor.getString(columnIndex)
-                    Log.i("GuardiansFragment", "Result: $guardianPhone")
+                if (columnEmail >= 0) {
+                    guardianEmail = cursor.getString(columnEmail)
                 }
-            }
-            if(cursor?.moveToFirst() == true) {
-                val columnIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Email.DATA)
-                if (columnIndex >= 0) {
-                    guardianEmail = cursor.getString(columnIndex)
-                    Log.i("GuardiansFragment", "Result: $guardianEmail")
-                }
-            }
 
+                val hasPhone: String? =
+                    cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER))
+
+                if (hasPhone.equals("1", ignoreCase = true)) {
+                    val phones: Cursor? = activity?.contentResolver?.query(
+                        CommonDataKinds.Phone.CONTENT_URI, null,
+                        CommonDataKinds.Phone.CONTACT_ID + " = " + id, null, null
+                    )
+                    phones?.moveToFirst()
+                    val contactNumber =
+                        phones?.getString(phones.getColumnIndex(CommonDataKinds.Phone.NUMBER))
+                    contactNumber?.let { phoneNumber -> guardianPhone = phoneNumber }
+                }
+            }
             cursor?.close()
-        } catch (e: java.lang.Exception) {
+        } catch (e: Exception) {
             e.printStackTrace()
         }
+        saveGuardian(guardianName, guardianPhone, guardianEmail)
+    }
+
+    private fun saveGuardian(
+        name: String,
+        phoneNumber: String,
+        emailAddress: String) {
+
+        //-- Check for empty name, phone number, email address
+        //-- check for proper name (only a-z characters)
+        //-- check for improper phone numbers (only 1-9)
+        //-- Check for proper email address (name @ domain. com/edu/org, etc)
+        DatabaseHelper.addGuardian(name, phoneNumber, emailAddress)
+        val guardians = DatabaseHelper.getAllGuardians()
+        adapter.setGuardians(guardians)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

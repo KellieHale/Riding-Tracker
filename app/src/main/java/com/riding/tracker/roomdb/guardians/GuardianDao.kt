@@ -18,8 +18,8 @@ interface GuardianDao {
     @Update
     fun addGuardian(vararg guardian: Guardian)
 
-    @Delete
-    fun delete(guardian: Guardian)
+    @Query("DELETE FROM guardian WHERE guardian_phone = :phoneNumber")
+    fun delete(phoneNumber: String)
 
     @Insert(onConflict = REPLACE)
     fun insert(guardian: Guardian)

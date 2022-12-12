@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.riding.tracker.R
 import com.riding.tracker.roomdb.guardians.Guardian
 
-class GuardiansAdapter(private val guardians: List<Guardian>) : RecyclerView.Adapter<GuardiansAdapter.ViewHolder>() {
+class GuardiansAdapter(private var guardians: List<Guardian>) : RecyclerView.Adapter<GuardiansAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val nameTextView: TextView
@@ -42,5 +42,10 @@ class GuardiansAdapter(private val guardians: List<Guardian>) : RecyclerView.Ada
 
     override fun getItemCount(): Int {
         return guardians.size
+    }
+
+    fun setGuardians(guardians: List<Guardian>) {
+        this.guardians = guardians
+        notifyDataSetChanged()
     }
 }

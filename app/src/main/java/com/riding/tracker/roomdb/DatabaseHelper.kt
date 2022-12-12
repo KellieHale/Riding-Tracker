@@ -46,6 +46,10 @@ object DatabaseHelper {
         return db.guardianDao().getAllGuardians()
     }
 
+    fun deleteGuardian(phoneNumber: String) {
+        db.guardianDao().delete(phoneNumber)
+    }
+
     fun addGuardian(
         name: String?,
         phoneNumber: String?,
