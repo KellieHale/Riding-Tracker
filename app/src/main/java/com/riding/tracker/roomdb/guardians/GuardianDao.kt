@@ -18,8 +18,14 @@ interface GuardianDao {
     @Update
     fun addGuardian(vararg guardian: Guardian)
 
-    @Query("DELETE FROM guardian WHERE guardian_phone = :phoneNumber")
-    fun delete(phoneNumber: String)
+    @Query("DELETE FROM guardian WHERE guardianId = :guardianId")
+    fun delete(guardianId: Int)
+
+    @Query("SELECT * FROM guardian " +
+            "WHERE guardian_name = :name " +
+            "AND guardian_email = :email " +
+            "AND guardian_phone = :phoneNumber")
+    fun guardianExists(name: String, phoneNumber: String?, email: String?): Guardian?
 
     @Insert(onConflict = REPLACE)
     fun insert(guardian: Guardian)

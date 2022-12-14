@@ -42,12 +42,16 @@ object DatabaseHelper {
         return db.guardianDao().getGuardian(guardianId)
     }
 
+    fun guardianExists(name: String, phoneNumber: String?, email: String?) : Boolean {
+        return db.guardianDao().guardianExists(name, phoneNumber, email) != null
+    }
+
     fun getAllGuardians(): List<Guardian> {
         return db.guardianDao().getAllGuardians()
     }
 
-    fun deleteGuardian(phoneNumber: String) {
-        db.guardianDao().delete(phoneNumber)
+    fun deleteGuardian(guardianId: Int) {
+        db.guardianDao().delete(guardianId)
     }
 
     fun addGuardian(

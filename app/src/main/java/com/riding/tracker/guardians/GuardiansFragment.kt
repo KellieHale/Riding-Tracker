@@ -12,7 +12,7 @@ import android.os.Bundle
 import android.provider.ContactsContract
 import android.provider.ContactsContract.CommonDataKinds
 import android.provider.ContactsContract.Data
-import android.util.Log
+import android.text.TextUtils
 import android.view.*
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.result.contract.ActivityResultContracts.RequestPermission
@@ -25,6 +25,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.riding.tracker.R
 import com.riding.tracker.roomdb.DatabaseHelper
+import com.riding.tracker.roomdb.DatabaseHelper.deleteGuardian
+
 
 
 class GuardiansFragment : Fragment() {
@@ -44,19 +46,30 @@ class GuardiansFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
         (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.guardians)
         val recyclerView: RecyclerView = contentView.findViewById(R.id.guardians_recycler_view)
 
-        val guardians = DatabaseHelper.getAllGuardians()
         recyclerView.layoutManager = LinearLayoutManager(context)
-        adapter = GuardiansAdapter(guardians) { clickedGuardian ->
-            
+        adapter = GuardiansAdapter { clickedGuardian ->
+            clickedGuardian.guardianId?.let { guardianId ->
+                showDeleteGuardianDialog(guardianId)
+            }
         }
         recyclerView.adapter = adapter
-
         addDivider(recyclerView)
+    }
+
+    private fun showDeleteGuardianDialog(guardianId: Int) {
+        // Delete the guardian by calling DatabaseHelper.deleteGuardian
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setTitle("Delete Guardian?") //-- Set to resource
+        builder.setMessage("Would you like to Delete this Guardian?") //-- Set to resource
+        builder.setPositiveButton(getString(R.string.delete)) { _, _ ->
+            deleteGuardian(guardianId)
+            adapter.updateGuardians()
+        }
+        builder.setNeutralButton(getString(R.string.cancel), null)
+        builder.show()
     }
 
     private fun addDivider(recyclerView: RecyclerView) {
@@ -189,9 +202,10 @@ class GuardiansFragment : Fragment() {
         //-- check for proper name (only a-z characters)
         //-- check for improper phone numbers (only 1-9)
         //-- Check for proper email address (name @ domain. com/edu/org, etc)
-        DatabaseHelper.addGuardian(name, phoneNumber, emailAddress)
-        val guardians = DatabaseHelper.getAllGuardians()
-        adapter.setGuardians(guardians)
+        if (!DatabaseHelper.guardianExists(name, phoneNumber, emailAddress)) {
+            DatabaseHelper.addGuardian(name, phoneNumber, emailAddress)
+            adapter.updateGuardians()
+        }
     }
 
 

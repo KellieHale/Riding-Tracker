@@ -8,10 +8,18 @@ import android.widget.TextView
 import androidx.appcompat.widget.SwitchCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.riding.tracker.R
+import com.riding.tracker.roomdb.DatabaseHelper
 import com.riding.tracker.roomdb.guardians.Guardian
+import com.riding.tracker.roomdb.guardians.GuardianDao
 
-class GuardiansAdapter(private var guardians: List<Guardian>, val onItemClicked: (Guardian) -> Unit):
+class GuardiansAdapter(val onItemClicked: (Guardian) -> Unit):
     RecyclerView.Adapter<GuardiansAdapter.ViewHolder>() {
+
+    private lateinit var guardians: List<Guardian>
+
+    init {
+        updateGuardians()
+    }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val nameTextView: TextView
@@ -49,12 +57,12 @@ class GuardiansAdapter(private var guardians: List<Guardian>, val onItemClicked:
         }
     }
 
-    override fun getItemCount(): Int {
-        return guardians.size
+    fun updateGuardians() {
+        guardians = DatabaseHelper.getAllGuardians()
+        notifyDataSetChanged()
     }
 
-    fun setGuardians(guardians: List<Guardian>) {
-        this.guardians = guardians
-        notifyDataSetChanged()
+    override fun getItemCount(): Int {
+        return guardians.size
     }
 }
