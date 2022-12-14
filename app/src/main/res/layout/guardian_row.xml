@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
-    android:longClickable="true"
     android:orientation="horizontal"
     android:weightSum="10">
 
@@ -12,9 +11,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="8"
-        android:longClickable="true"
         android:padding="8dp"
-
         android:orientation="vertical">
 
         <TextView

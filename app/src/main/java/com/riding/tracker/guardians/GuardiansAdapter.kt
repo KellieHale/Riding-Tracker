@@ -1,5 +1,6 @@
 package com.riding.tracker.guardians
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.riding.tracker.R
 import com.riding.tracker.roomdb.guardians.Guardian
 
-class GuardiansAdapter(private var guardians: List<Guardian>) : RecyclerView.Adapter<GuardiansAdapter.ViewHolder>() {
+class GuardiansAdapter(private var guardians: List<Guardian>, val onItemClicked: (Guardian) -> Unit):
+    RecyclerView.Adapter<GuardiansAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val nameTextView: TextView
@@ -37,7 +39,14 @@ class GuardiansAdapter(private var guardians: List<Guardian>) : RecyclerView.Ada
         holder.broadcastSwitch.isChecked = guardian.broadcast
         holder.phoneTextView.text = guardian.phoneNumber
         holder.emailTextView.text = guardian.emailAddress
-
+        holder.itemView.setOnClickListener {
+            Log.i("GuardiansAdapter", "onItemClicked")
+        }
+        holder.itemView.setOnLongClickListener {
+            val currentGuardian = guardians[position]
+            onItemClicked(currentGuardian)
+            true
+        }
     }
 
     override fun getItemCount(): Int {

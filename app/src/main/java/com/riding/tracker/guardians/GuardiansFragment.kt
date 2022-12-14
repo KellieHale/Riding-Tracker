@@ -12,6 +12,7 @@ import android.os.Bundle
 import android.provider.ContactsContract
 import android.provider.ContactsContract.CommonDataKinds
 import android.provider.ContactsContract.Data
+import android.util.Log
 import android.view.*
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.result.contract.ActivityResultContracts.RequestPermission
@@ -50,7 +51,9 @@ class GuardiansFragment : Fragment() {
 
         val guardians = DatabaseHelper.getAllGuardians()
         recyclerView.layoutManager = LinearLayoutManager(context)
-        adapter = GuardiansAdapter(guardians)
+        adapter = GuardiansAdapter(guardians) { clickedGuardian ->
+            
+        }
         recyclerView.adapter = adapter
 
         addDivider(recyclerView)
