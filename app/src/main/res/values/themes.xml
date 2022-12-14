@@ -12,6 +12,8 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="colorControlNormal">@color/white</item>
+        <item name="colorControlActivated">@color/red</item>
     </style>
 
     <style name="Theme.RidingTracker.NoActionBar">
@@ -22,4 +24,9 @@
     <style name="Theme.RidingTracker.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.RidingTracker.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="Theme.RidingTracker.Switch" parent="ThemeOverlay.AppCompat.DayNight.ActionBar">
+        <item name="colorControlActivated">@color/red</item>
+        <item name="colorControlNormal">@color/white</item>
+    </style>
 </resources>

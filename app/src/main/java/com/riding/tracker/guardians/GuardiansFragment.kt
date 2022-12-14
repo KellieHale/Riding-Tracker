@@ -12,7 +12,6 @@ import android.os.Bundle
 import android.provider.ContactsContract
 import android.provider.ContactsContract.CommonDataKinds
 import android.provider.ContactsContract.Data
-import android.util.Log
 import android.view.*
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.result.contract.ActivityResultContracts.RequestPermission
@@ -20,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.riding.tracker.R
@@ -44,6 +44,7 @@ class GuardiansFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
         (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.guardians)
         val recyclerView: RecyclerView = contentView.findViewById(R.id.guardians_recycler_view)
 
@@ -51,6 +52,18 @@ class GuardiansFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(context)
         adapter = GuardiansAdapter(guardians)
         recyclerView.adapter = adapter
+
+        addDivider(recyclerView)
+    }
+
+    private fun addDivider(recyclerView: RecyclerView) {
+        val verticalDecoration = DividerItemDecoration(
+            requireContext(),
+            DividerItemDecoration.VERTICAL
+        )
+        val verticalDivider = ContextCompat.getDrawable(requireActivity(), R.drawable.vertical_divider)
+        verticalDecoration.setDrawable(verticalDivider!!)
+        recyclerView.addItemDecoration(verticalDecoration)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -92,7 +105,7 @@ class GuardiansFragment : Fragment() {
                 showContacts()
             }
             shouldShowRequestPermissionRationale("") -> {
-                //-- Extra step
+                showImportContactError()
             }
             else -> {
                 requestPermissionLauncher.launch(
@@ -100,6 +113,7 @@ class GuardiansFragment : Fragment() {
             }
         }
     }
+
 
     private fun showContactsPermissionErrorDialog() {
         val builder = AlertDialog.Builder(requireContext())
@@ -119,7 +133,7 @@ class GuardiansFragment : Fragment() {
 
     @SuppressLint("Range")
     private fun getContactInformation(id: String) {
-        var cursor: Cursor?
+        val cursor: Cursor?
         var guardianName  = ""
         var guardianPhone = ""
         var guardianEmail = ""
@@ -176,6 +190,8 @@ class GuardiansFragment : Fragment() {
         val guardians = DatabaseHelper.getAllGuardians()
         adapter.setGuardians(guardians)
     }
+
+
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
