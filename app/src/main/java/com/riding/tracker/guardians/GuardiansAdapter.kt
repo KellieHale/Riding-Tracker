@@ -10,9 +10,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.riding.tracker.R
 import com.riding.tracker.roomdb.DatabaseHelper
 import com.riding.tracker.roomdb.guardians.Guardian
-import com.riding.tracker.roomdb.guardians.GuardianDao
 
-class GuardiansAdapter(val onItemClicked: (Guardian) -> Unit):
+class GuardiansAdapter(
+    val onItemLongPressed: (Guardian) -> Unit,
+    val onItemClicked: (Guardian) -> Unit):
     RecyclerView.Adapter<GuardiansAdapter.ViewHolder>() {
 
     private lateinit var guardians: List<Guardian>
@@ -48,11 +49,11 @@ class GuardiansAdapter(val onItemClicked: (Guardian) -> Unit):
         holder.phoneTextView.text = guardian.phoneNumber
         holder.emailTextView.text = guardian.emailAddress
         holder.itemView.setOnClickListener {
-            Log.i("GuardiansAdapter", "onItemClicked")
+            //-- use onItemClicked to pass guardian back
         }
         holder.itemView.setOnLongClickListener {
             val currentGuardian = guardians[position]
-            onItemClicked(currentGuardian)
+            onItemLongPressed(currentGuardian)
             true
         }
     }

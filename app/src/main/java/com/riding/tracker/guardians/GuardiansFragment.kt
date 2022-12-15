@@ -12,7 +12,6 @@ import android.os.Bundle
 import android.provider.ContactsContract
 import android.provider.ContactsContract.CommonDataKinds
 import android.provider.ContactsContract.Data
-import android.text.TextUtils
 import android.view.*
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.result.contract.ActivityResultContracts.RequestPermission
@@ -50,20 +49,21 @@ class GuardiansFragment : Fragment() {
         val recyclerView: RecyclerView = contentView.findViewById(R.id.guardians_recycler_view)
 
         recyclerView.layoutManager = LinearLayoutManager(context)
-        adapter = GuardiansAdapter { clickedGuardian ->
-            clickedGuardian.guardianId?.let { guardianId ->
+        adapter = GuardiansAdapter(onItemClicked = { guardian ->
+            //-- Send Guardian to AddGuardianFragment
+        }, onItemLongPressed = { guardian ->
+            guardian.guardianId?.let { guardianId ->
                 showDeleteGuardianDialog(guardianId)
             }
-        }
+        })
         recyclerView.adapter = adapter
         addDivider(recyclerView)
     }
 
     private fun showDeleteGuardianDialog(guardianId: Int) {
-        // Delete the guardian by calling DatabaseHelper.deleteGuardian
         val builder = AlertDialog.Builder(requireContext())
-        builder.setTitle("Delete Guardian?") //-- Set to resource
-        builder.setMessage("Would you like to Delete this Guardian?") //-- Set to resource
+        builder.setTitle(getString(R.string.delete_guardian_title))
+        builder.setMessage(getString(R.string.delete_guardian_message))
         builder.setPositiveButton(getString(R.string.delete)) { _, _ ->
             deleteGuardian(guardianId)
             adapter.updateGuardians()

@@ -11,6 +11,8 @@
     <!-- Strings used for fragments for navigation -->
     <string name="current_ride">Current Ride</string>
     <string name="delete">Delete</string>
+    <string name="delete_guardian_title">Delete Guardian?</string>
+    <string name="delete_guardian_message">Would you like to Delete this Guardian?</string>
     <string name="edit_profile">Edit Profile</string>
     <string name="email">Email</string>
     <string name="import_contact_error">Import Contact Error</string>
