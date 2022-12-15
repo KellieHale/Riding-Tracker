@@ -15,9 +15,11 @@
     <string name="delete_guardian_message">Would you like to Delete this Guardian?</string>
     <string name="edit_profile">Edit Profile</string>
     <string name="email">Email</string>
+    <string name="email_missing">Email Address is Missing</string>
     <string name="import_contact_error">Import Contact Error</string>
     <string name="import_contact_error_dialogue">There was an error in importing your contact. Please check the contact for Name, Phone Number, and Email. Thank you.</string>
     <string name="next">Next</string>
+    <string name="no_email_address">There is no email address for this contact. It is not required however it will not allow an emergency email to be sent.</string>
     <string name="previous">Previous</string>
     <string name="first_fragment_label">First Fragment</string>
     <string name="guardians">Guardians</string>

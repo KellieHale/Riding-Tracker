@@ -25,7 +25,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.riding.tracker.R
 import com.riding.tracker.roomdb.DatabaseHelper
 import com.riding.tracker.roomdb.DatabaseHelper.deleteGuardian
-
+import java.text.Normalizer
+import java.util.regex.Pattern
 
 
 class GuardiansFragment : Fragment() {
@@ -193,13 +194,29 @@ class GuardiansFragment : Fragment() {
         saveGuardian(guardianName, guardianPhone, guardianEmail)
     }
 
+    private fun isNameValid(name: String): Boolean {
+        val normalizedName = Normalizer
+            .normalize(name, Normalizer.Form.NFD)
+            .replace("\\p{Mn}".toRegex(), "")
+        return normalizedName.matches(Regex("^[a-zA-Z ]*$"))
+    }
+    private fun isPhoneNumberValid(phoneNumber: String): Boolean {
+        val patterns = ("^(\\+\\d{1,3}( )?)?((\\(\\d{3}\\))|\\d{3})[- .]?\\d{3}[- .]?\\d{4}$"
+                + "|^(\\+\\d{1,3}( )?)?(\\d{3}[ ]?){2}\\d{3}$"
+                + "|^(\\+\\d{1,3}( )?)?(\\d{3}[ ]?)(\\d{2}[ ]?){2}\\d{2}$")
+        val pattern = Pattern.compile(patterns)
+        return pattern.matcher(phoneNumber).matches()
+    }
+
     private fun saveGuardian(
         name: String,
         phoneNumber: String,
         emailAddress: String) {
-
-        //-- Check for empty name, phone number, email address
-        //-- check for proper name (only a-z characters)
+        val validPhoneNumber = isPhoneNumberValid(phoneNumber)
+        if (name.isEmpty() || phoneNumber.isEmpty() || !isNameValid(name) || !isPhoneNumberValid(phoneNumber)) {
+            showImportContactError()
+            return
+        }
         //-- check for improper phone numbers (only 1-9)
         //-- Check for proper email address (name @ domain. com/edu/org, etc)
         if (!DatabaseHelper.guardianExists(name, phoneNumber, emailAddress)) {
@@ -207,8 +224,6 @@ class GuardiansFragment : Fragment() {
             adapter.updateGuardians()
         }
     }
-
-
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
