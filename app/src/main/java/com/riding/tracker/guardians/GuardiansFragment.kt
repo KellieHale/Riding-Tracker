@@ -12,6 +12,7 @@ import android.os.Bundle
 import android.provider.ContactsContract
 import android.provider.ContactsContract.CommonDataKinds
 import android.provider.ContactsContract.Data
+import android.util.Patterns
 import android.view.*
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.result.contract.ActivityResultContracts.RequestPermission
@@ -194,33 +195,22 @@ class GuardiansFragment : Fragment() {
         saveGuardian(guardianName, guardianPhone, guardianEmail)
     }
 
-    private fun isNameValid(name: String): Boolean {
-        val normalizedName = Normalizer
-            .normalize(name, Normalizer.Form.NFD)
-            .replace("\\p{Mn}".toRegex(), "")
-        return normalizedName.matches(Regex("^[a-zA-Z ]*$"))
-    }
-    private fun isPhoneNumberValid(phoneNumber: String): Boolean {
-        val patterns = ("^(\\+\\d{1,3}( )?)?((\\(\\d{3}\\))|\\d{3})[- .]?\\d{3}[- .]?\\d{4}$"
-                + "|^(\\+\\d{1,3}( )?)?(\\d{3}[ ]?){2}\\d{3}$"
-                + "|^(\\+\\d{1,3}( )?)?(\\d{3}[ ]?)(\\d{2}[ ]?){2}\\d{2}$")
-        val pattern = Pattern.compile(patterns)
-        return pattern.matcher(phoneNumber).matches()
-    }
-
     private fun saveGuardian(
         name: String,
         phoneNumber: String,
         emailAddress: String) {
-        val validPhoneNumber = isPhoneNumberValid(phoneNumber)
-        if (name.isEmpty() || phoneNumber.isEmpty() || !isNameValid(name) || !isPhoneNumberValid(phoneNumber)) {
+        val validPhoneNumber = InputValidator.isValidPhoneNumber(phoneNumber)
+        var email = emailAddress
+        if (name.isEmpty() || phoneNumber.isEmpty() || !InputValidator.isNameValid(name) || !validPhoneNumber) {
             showImportContactError()
             return
+        } else if (!InputValidator.isEmailValid(emailAddress)) {
+            email = ""
         }
         //-- check for improper phone numbers (only 1-9)
         //-- Check for proper email address (name @ domain. com/edu/org, etc)
-        if (!DatabaseHelper.guardianExists(name, phoneNumber, emailAddress)) {
-            DatabaseHelper.addGuardian(name, phoneNumber, emailAddress)
+        if (!DatabaseHelper.guardianExists(name, phoneNumber, email)) {
+            DatabaseHelper.addGuardian(name, phoneNumber, email)
             adapter.updateGuardians()
         }
     }

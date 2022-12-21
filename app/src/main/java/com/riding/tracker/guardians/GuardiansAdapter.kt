@@ -56,6 +56,9 @@ class GuardiansAdapter(
             onItemLongPressed(currentGuardian)
             true
         }
+        if (guardian.emailAddress.isNullOrEmpty()) {
+            holder.emailTextView.visibility = View.GONE
+        } else holder.emailTextView.visibility = View.VISIBLE
     }
 
     fun updateGuardians() {
