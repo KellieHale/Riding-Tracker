@@ -34,6 +34,7 @@
     <string name="kellie_hale">Kellie Hale</string>
     <string name="name">Name</string>
     <string name="no">No</string>
+    <string name="notify_all_guardians">Notify All Guardians</string>
     <string name="ok">OK</string>
     <string name="permission_denied">Permission Denied</string>
     <string name="phone">Phone Number</string>

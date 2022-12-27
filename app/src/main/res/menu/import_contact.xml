@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/guardian_switch"
+        android:title="@string/notify_all_guardians"
+        app:actionLayout="@layout/switch_item"
+        app:showAsAction="always" />
     <item
         android:id="@+id/import_contact"
-        android:icon="@android:drawable/ic_input_add"
-        android:iconTint="#000000"
-        android:title="@string/import_contact"
-        app:showAsAction="ifRoom"/>
+        android:title="@string/import_contact"/>
     <item
         android:id="@+id/add_guardian"
-        android:icon="@android:drawable/ic_menu_edit"
-        android:title="@string/add_guardian"
-        app:showAsAction="ifRoom" />
+        android:title="@string/add_guardian" />
 </menu>
