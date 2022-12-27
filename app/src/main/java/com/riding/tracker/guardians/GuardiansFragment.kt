@@ -137,6 +137,7 @@ class GuardiansFragment : Fragment() {
     }
 
 
+    @SuppressLint("SuspiciousIndentation")
     private fun showContactsPermissionErrorDialog() {
         val builder = AlertDialog.Builder(requireContext())
             builder.setTitle(getString(R.string.permission_denied))
@@ -228,7 +229,13 @@ class GuardiansFragment : Fragment() {
             R.id.add_guardian -> {
                 findNavController().navigate(R.id.startAddGuardiansFragment)
             }
+            R.id.guardian_switch -> {
+                // call function for guardianSwitch
+            }
         }
         return super.onOptionsItemSelected(item)
+    }
+    private fun guardianSwitch(item: MenuItem): Boolean {
+        //set master switch to toggle all on or off and if off still be able to switch on individually
     }
 }
