@@ -54,6 +54,10 @@ object DatabaseHelper {
         db.guardianDao().delete(guardianId)
     }
 
+    fun editGuardian(guardian: Guardian) {
+        db.guardianDao().addOrEditGuardian(guardian)
+    }
+
     fun addGuardian(
         name: String?,
         phoneNumber: String?,
@@ -66,6 +70,6 @@ object DatabaseHelper {
             emailAddress = email,
             broadcast = broadcast
         )
-        db.guardianDao().insert(guardian)
+        db.guardianDao().addOrEditGuardian(guardian)
     }
 }

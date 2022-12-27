@@ -12,12 +12,12 @@ import android.os.Bundle
 import android.provider.ContactsContract
 import android.provider.ContactsContract.CommonDataKinds
 import android.provider.ContactsContract.Data
-import android.util.Patterns
 import android.view.*
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.result.contract.ActivityResultContracts.RequestPermission
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -26,8 +26,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.riding.tracker.R
 import com.riding.tracker.roomdb.DatabaseHelper
 import com.riding.tracker.roomdb.DatabaseHelper.deleteGuardian
-import java.text.Normalizer
-import java.util.regex.Pattern
+import com.riding.tracker.roomdb.guardians.Guardian
 
 
 class GuardiansFragment : Fragment() {
@@ -52,7 +51,7 @@ class GuardiansFragment : Fragment() {
 
         recyclerView.layoutManager = LinearLayoutManager(context)
         adapter = GuardiansAdapter(onItemClicked = { guardian ->
-            //-- Send Guardian to AddGuardianFragment
+            editGuardian(guardian)
         }, onItemLongPressed = { guardian ->
             guardian.guardianId?.let { guardianId ->
                 showDeleteGuardianDialog(guardianId)
@@ -82,6 +81,11 @@ class GuardiansFragment : Fragment() {
         val verticalDivider = ContextCompat.getDrawable(requireActivity(), R.drawable.vertical_divider)
         verticalDecoration.setDrawable(verticalDivider!!)
         recyclerView.addItemDecoration(verticalDecoration)
+    }
+
+    private fun editGuardian(guardian: Guardian) {
+        val bundle = bundleOf("guardian" to guardian)
+        findNavController().navigate(R.id.startAddGuardiansFragment, bundle)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -141,6 +145,7 @@ class GuardiansFragment : Fragment() {
         builder.show()
     }
 
+    @SuppressLint("SuspiciousIndentation")
     private fun showImportContactError() {
         val builder = AlertDialog.Builder(requireContext())
             builder.setTitle(getString(R.string.import_contact_error))

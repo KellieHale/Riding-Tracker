@@ -49,7 +49,8 @@ class GuardiansAdapter(
         holder.phoneTextView.text = guardian.phoneNumber
         holder.emailTextView.text = guardian.emailAddress
         holder.itemView.setOnClickListener {
-            //-- use onItemClicked to pass guardian back
+            val currentGuardian = guardians[position]
+            onItemClicked(currentGuardian)
         }
         holder.itemView.setOnLongClickListener {
             val currentGuardian = guardians[position]

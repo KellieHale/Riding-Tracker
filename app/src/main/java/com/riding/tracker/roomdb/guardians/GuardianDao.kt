@@ -28,5 +28,6 @@ interface GuardianDao {
     fun guardianExists(name: String, phoneNumber: String?, email: String?): Guardian?
 
     @Insert(onConflict = REPLACE)
-    fun insert(guardian: Guardian)
+    fun addOrEditGuardian(guardian: Guardian)
+
 }
