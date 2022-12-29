@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import com.riding.tracker.R
 
 class CurrentRideFragment : Fragment() {
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
