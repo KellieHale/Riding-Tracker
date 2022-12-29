@@ -13,9 +13,12 @@ import android.provider.ContactsContract
 import android.provider.ContactsContract.CommonDataKinds
 import android.provider.ContactsContract.Data
 import android.view.*
+import android.widget.Switch
+import android.widget.ToggleButton
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.result.contract.ActivityResultContracts.RequestPermission
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SwitchCompat
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
@@ -78,7 +81,8 @@ class GuardiansFragment : Fragment() {
             requireContext(),
             DividerItemDecoration.VERTICAL
         )
-        val verticalDivider = ContextCompat.getDrawable(requireActivity(), R.drawable.vertical_divider)
+        val verticalDivider =
+            ContextCompat.getDrawable(requireActivity(), R.drawable.vertical_divider)
         verticalDecoration.setDrawable(verticalDivider!!)
         recyclerView.addItemDecoration(verticalDecoration)
     }
@@ -109,7 +113,8 @@ class GuardiansFragment : Fragment() {
     }
 
     private val requestPermissionLauncher =
-        registerForActivityResult(RequestPermission()
+        registerForActivityResult(
+            RequestPermission()
         ) { isGranted: Boolean ->
             if (isGranted) {
                 showContacts()
@@ -131,7 +136,8 @@ class GuardiansFragment : Fragment() {
             }
             else -> {
                 requestPermissionLauncher.launch(
-                    Manifest.permission.READ_CONTACTS)
+                    Manifest.permission.READ_CONTACTS
+                )
             }
         }
     }
@@ -140,25 +146,25 @@ class GuardiansFragment : Fragment() {
     @SuppressLint("SuspiciousIndentation")
     private fun showContactsPermissionErrorDialog() {
         val builder = AlertDialog.Builder(requireContext())
-            builder.setTitle(getString(R.string.permission_denied))
-            builder.setMessage(getString(R.string.contacts_error_dialogue))
-            builder.setPositiveButton(getString(R.string.ok), null)
+        builder.setTitle(getString(R.string.permission_denied))
+        builder.setMessage(getString(R.string.contacts_error_dialogue))
+        builder.setPositiveButton(getString(R.string.ok), null)
         builder.show()
     }
 
     @SuppressLint("SuspiciousIndentation")
     private fun showImportContactError() {
         val builder = AlertDialog.Builder(requireContext())
-            builder.setTitle(getString(R.string.import_contact_error))
-            builder.setMessage(getString(R.string.import_contact_error_dialogue))
-            builder.setPositiveButton(getString(R.string.ok), null)
+        builder.setTitle(getString(R.string.import_contact_error))
+        builder.setMessage(getString(R.string.import_contact_error_dialogue))
+        builder.setPositiveButton(getString(R.string.ok), null)
         builder.show()
     }
 
     @SuppressLint("Range")
     private fun getContactInformation(id: String) {
         val cursor: Cursor?
-        var guardianName  = ""
+        var guardianName = ""
         var guardianPhone = ""
         var guardianEmail = ""
 
@@ -204,7 +210,8 @@ class GuardiansFragment : Fragment() {
     private fun saveGuardian(
         name: String,
         phoneNumber: String,
-        emailAddress: String) {
+        emailAddress: String
+    ) {
         val validPhoneNumber = InputValidator.isValidPhoneNumber(phoneNumber)
         var email = emailAddress
         if (name.isEmpty() || phoneNumber.isEmpty() || !InputValidator.isNameValid(name) || !validPhoneNumber) {
@@ -229,13 +236,7 @@ class GuardiansFragment : Fragment() {
             R.id.add_guardian -> {
                 findNavController().navigate(R.id.startAddGuardiansFragment)
             }
-            R.id.guardian_switch -> {
-                // call function for guardianSwitch
-            }
         }
         return super.onOptionsItemSelected(item)
-    }
-    private fun guardianSwitch(item: MenuItem): Boolean {
-        //set master switch to toggle all on or off and if off still be able to switch on individually
     }
 }
