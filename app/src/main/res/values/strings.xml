@@ -2,13 +2,14 @@
 
     <string name="add_guardian">Add Guardian</string>
     <string name="address">Address</string>
+    <string name="allow">Allow</string>
     <string name="full_address">7609 Tangerine Knoll Loop Winter Garden, FL 34787</string>
     <string name="app_name">Riding Tracker</string>
     <string name="bandfrog15">Bandfrog15</string>
     <string name="cancel">Cancel</string>
     <string name="contacts_error_dialogue">You have denied the Import Conditions Permission. Manual entry of guardians is required unless permission is approved.</string>
+    <string name="deny">Deny</string>
     <string name="title_activity_main">MainActivity</string>
-    <!-- Strings used for fragments for navigation -->
     <string name="current_ride">Current Ride</string>
     <string name="delete">Delete</string>
     <string name="delete_guardian_title">Delete Guardian?</string>
@@ -20,6 +21,8 @@
     <string name="email_missing">Email Address is Missing</string>
     <string name="import_contact_error">Import Contact Error</string>
     <string name="import_contact_error_dialogue">There was an error in importing your contact. Please check the contact for Name, Phone Number, and Email. Thank you.</string>
+    <string name="location_permission_error_title">Location Permissions Error</string>
+    <string name="location_permission_error_message">In order to use the map feature in this app, the location permissions must be accepted.</string>
     <string name="next">Next</string>
     <string name="no_email_address">There is no email address for this contact. It is not required however it will not allow an emergency email to be sent.</string>
     <string name="previous">Previous</string>
