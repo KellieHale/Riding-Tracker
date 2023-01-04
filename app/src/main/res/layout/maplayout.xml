@@ -1,20 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.fragment.app.FragmentContainerView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:map="http://schemas.android.com/apk/res-auto"
-    android:name="com.google.android.gms.maps.SupportMapFragment"
-    android:id="@+id/map"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    map:cameraTilt="30"
-    map:mapType="terrain"
-    map:cameraBearing="112.5"
-    map:cameraTargetLat="-33.796923"
-    map:cameraTargetLng="150.922433"
-    map:cameraZoom="13"
-    map:uiCompass="true"
-    map:uiRotateGestures="true"
-    map:uiScrollGestures="true"
-    map:uiTiltGestures="true"
-    map:uiZoomControls="true"
-    map:uiZoomGestures="true"/>
+    >
 
+    <androidx.fragment.app.FragmentContainerView
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:id="@+id/map"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        map:cameraTilt="30"
+        map:mapType="terrain"
+        map:cameraBearing="112.5"
+        map:cameraTargetLat="-33.796923"
+        map:cameraTargetLng="150.922433"
+        map:cameraZoom="13"
+        map:uiCompass="true"
+        map:uiRotateGestures="true"
+        map:uiScrollGestures="true"
+        map:uiTiltGestures="true"
+        map:uiZoomControls="true"
+        map:uiZoomGestures="true"/>
+<!--    map first layer then buttons on top-->
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/current_location"
+        android:layout_marginBottom="20dp"
+        android:layout_marginEnd="20dp"
+        android:gravity="end|bottom"
+        android:contentDescription="@+string/location"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:srcCompat="@drawable/ic_baseline_gps_fixed_24"
+        android:backgroundTint="@color/white">
+
+    </com.google.android.material.floatingactionbutton.FloatingActionButton>
+</androidx.constraintlayout.widget.ConstraintLayout>

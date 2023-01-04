@@ -19,6 +19,6 @@ class PreviousRidesFragment : Fragment(){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.previous_rides)
+        (activity as AppCompatActivity).supportActionBar?.setTitle(R.string.previous_rides)
     }
 }
