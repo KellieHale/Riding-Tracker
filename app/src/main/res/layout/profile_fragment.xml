@@ -21,23 +21,48 @@
             android:padding="16dp"
             android:showDividers="middle">
 
-
-            <ImageView
-                android:id="@+id/profile_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:srcCompat="@tools:sample/avatars" />
-
-            <TextView
-                android:id="@+id/full_name"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:text="@string/kellie_hale"
-                android:textSize="20sp"
-                android:textStyle="bold|italic" />
+                android:layout_height="match_parent">
 
 
+                <ImageView
+                    android:id="@+id/profile_image"
+                    android:layout_width="109dp"
+                    android:layout_height="167dp"
+                    android:layout_marginEnd="68dp"
+                    app:layout_constraintBottom_toTopOf="@id/email_address"
+                    app:layout_constraintEnd_toStartOf="@id/full_name"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/motorcycle_drawing" />
+
+
+                <TextView
+                    android:id="@+id/user_profile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="User Profile"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toTopOf="@id/full_name"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.637"
+                    app:layout_constraintStart_toEndOf="@id/profile_image"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/full_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/kellie_hale"
+                    android:textSize="30sp"
+                    android:textStyle="bold|italic"
+                    app:layout_constraintBottom_toTopOf="@id/email_address"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/profile_image"
+                    app:layout_constraintTop_toBottomOf="@id/user_profile" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <View

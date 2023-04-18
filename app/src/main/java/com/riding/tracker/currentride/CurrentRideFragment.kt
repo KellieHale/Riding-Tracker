@@ -1,45 +1,66 @@
 package com.riding.tracker.currentride
 
 import android.Manifest
-import android.content.DialogInterface
+import android.annotation.SuppressLint
+import android.content.Context
+import android.content.Context.LOCATION_SERVICE
 import android.content.pm.PackageManager
+import android.location.Location
+import android.location.LocationManager
 import android.os.Bundle
 import android.view.*
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationRequest
-import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.*
+import com.google.android.gms.maps.CameraUpdate
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import com.google.android.gms.tasks.CancellationToken
-import com.google.android.gms.tasks.CancellationTokenSource
-import com.google.android.gms.tasks.OnTokenCanceledListener
 import com.riding.tracker.R
+import com.riding.tracker.databinding.CurrentRideFragmentBinding
 
 
 class CurrentRideFragment : Fragment(), OnMapReadyCallback {
 
+
     private val viewModel: CurrentRideViewModel by lazy {
         ViewModelProvider(this)[CurrentRideViewModel::class.java]
     }
-    //-- Need binding possible for ViewModel--//
+
+    private lateinit var binding: CurrentRideFragmentBinding
 
     private lateinit var map: GoogleMap
 
     private lateinit var contentView: View
+
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
 
-    private var longitude = 0.0
-    private var latitude = 0.0
+    private var latitude: Double = 0.0
+    private var longitude: Double = 0.0
+
     private var homeLatLng = LatLng(latitude, longitude)
 
+    val locationPermissionRequest = registerForActivityResult(
+        ActivityResultContracts.RequestMultiplePermissions()
+    ) {permissions ->
+        when {
+            permissions.getOrDefault(Manifest.permission.ACCESS_FINE_LOCATION, false) -> {
+                getDeviceLocation()
+            }
+            permissions.getOrDefault(Manifest.permission.ACCESS_COARSE_LOCATION, false) -> {
+                getDeviceLocation()
+            } else ->{
+                viewModel.showLocationPermissionErrorDialog(context)
+            }
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,15 +68,24 @@ class CurrentRideFragment : Fragment(), OnMapReadyCallback {
         savedInstanceState: Bundle?
 
     ): View {
+        binding = CurrentRideFragmentBinding.inflate(layoutInflater)
+        binding.lifecycleOwner = viewLifecycleOwner
+        binding.viewModel = viewModel
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireContext())
 
         contentView = inflater.inflate(R.layout.maplayout, container, false)
         setHasOptionsMenu(true)
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireContext())
+
+        getDeviceLocation()
+
         return contentView
     }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.current_ride)
+
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
         }
@@ -66,7 +96,6 @@ class CurrentRideFragment : Fragment(), OnMapReadyCallback {
     }
 
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
-        // Change the map type based on the user's selection.
         R.id.normal_map -> {
             map.mapType = GoogleMap.MAP_TYPE_NORMAL
             true
@@ -87,48 +116,52 @@ class CurrentRideFragment : Fragment(), OnMapReadyCallback {
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
+        map = googleMap
         map.addMarker(MarkerOptions().position(homeLatLng))
         map.moveCamera(CameraUpdateFactory.newLatLng(homeLatLng))
-
         checkForLocationPermission()
+        getDeviceLocation()
     }
-    fun checkForLocationPermission() {
+
+    private fun checkForLocationPermission(): Boolean {
         when (PackageManager.PERMISSION_GRANTED) {
             ContextCompat.checkSelfPermission(
                 requireContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION
             ) -> {
-                getDeviceLocation()
+                return isLocationEnabled()
             }
             else -> {
-                requestLocationPermissionLauncher.
-                    launch(Manifest.permission.ACCESS_FINE_LOCATION)
+                locationPermissionRequest.
+                    launch(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION))
             }
         }
+        return checkForLocationPermission()
     }
-    private fun getDeviceLocation(): (DialogInterface, Int) -> Unit {
-        checkForLocationPermission()
-        fusedLocationProviderClient.getCurrentLocation(LocationRequest.PRIORITY_HIGH_ACCURACY, object :
-            CancellationToken() {
-            override fun onCanceledRequested(p0: OnTokenCanceledListener) = CancellationTokenSource().token
+    private fun isLocationEnabled(): Boolean {
+        val locationManager: LocationManager = requireActivity().
+            getSystemService(LOCATION_SERVICE) as LocationManager
+        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) ||
+                locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
+    }
 
-            override fun isCancellationRequested() = false
-        })
-            .addOnSuccessListener { location ->
-                latitude = location.latitude
-                longitude =location.longitude
-            }
-        return getDeviceLocation()
-    }
-    private val requestLocationPermissionLauncher =
-        registerForActivityResult(
-            ActivityResultContracts.RequestPermission()
-        ) { isGranted: Boolean ->
-            if (isGranted) {
-                getDeviceLocation()
-            } else {
-                viewModel.showLocationPermissionErrorDialog(context)
-            }
+    @SuppressLint("MissingPermission")
+    private fun getDeviceLocation() {
+        if (isLocationEnabled()) {
+            fusedLocationProviderClient.lastLocation
+                .addOnSuccessListener { location: Location ->
+                    latitude = location.latitude
+                    longitude = location.longitude
+
+                    val currentPosition = LatLng(latitude, longitude)
+                    map.addMarker(MarkerOptions().position(currentPosition))
+                    map.moveCamera(CameraUpdateFactory.newLatLngZoom(currentPosition, 15f))
+                }
+                .addOnFailureListener {
+                    viewModel.showLocationPermissionErrorDialog(context)
+                }
         }
+    }
 
 }

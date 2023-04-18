@@ -19,6 +19,9 @@ class CurrentRideViewModel: ViewModel() {
     val longitude: LiveData<Location>
         get() = _longitude
 
+    private val _currentLocation = MutableLiveData<Location>()
+    val currentLocation: LiveData<Location>
+        get() = _currentLocation
 
 
     private fun onConnected(p0: Int) {
@@ -33,7 +36,7 @@ class CurrentRideViewModel: ViewModel() {
         TODO("Not yet implemented")
     }
 
-    fun updateLocationUI(): (DialogInterface, Int) -> Unit {
+    private fun updateLocationUI(): (DialogInterface, Int) -> Unit {
         onConnected(0)
         onConnectionSuspended(0)
         onConnectionFailed(0)
@@ -50,5 +53,7 @@ class CurrentRideViewModel: ViewModel() {
         builder.setNeutralButton(R.string.cancel, null)
         builder.show()
     }
+
+
 
 }

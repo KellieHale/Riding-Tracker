@@ -32,6 +32,7 @@ class MainActivity : AppCompatActivity() {
 
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
+        supportActionBar?.title = getString(R.string.current_ride)
 
         DatabaseHelper.setupDatabase(applicationContext)
     }
