@@ -25,30 +25,27 @@ class CurrentRideViewModel: ViewModel() {
 
 
     private fun onConnected(p0: Int) {
-        TODO("Not yet implemented")
+
     }
 
     private fun onConnectionSuspended(p0: Int) {
-        TODO("Not yet implemented")
     }
 
     private fun onConnectionFailed(p0: Int) {
-        TODO("Not yet implemented")
     }
 
-    private fun updateLocationUI(): (DialogInterface, Int) -> Unit {
-        onConnected(0)
-        onConnectionSuspended(0)
-        onConnectionFailed(0)
+    private fun updateLocationUI() {
 
-        return updateLocationUI()
     }
 
     fun showLocationPermissionErrorDialog(context: Context?) {
         val builder = AlertDialog.Builder(context)
         builder.setTitle(R.string.location_permission_error_title)
         builder.setMessage(R.string.location_permission_error_message)
-        builder.setPositiveButton(R.string.allow, DialogInterface.OnClickListener(updateLocationUI()))
+        builder.setPositiveButton(R.string.allow, DialogInterface.OnClickListener { dialog, _ ->
+            updateLocationUI()
+            dialog.dismiss()
+        })
         builder.setNegativeButton(R.string.deny, null)
         builder.setNeutralButton(R.string.cancel, null)
         builder.show()
