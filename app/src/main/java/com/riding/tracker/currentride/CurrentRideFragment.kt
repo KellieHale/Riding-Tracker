@@ -2,6 +2,7 @@ package com.riding.tracker.currentride
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Context.LOCATION_SERVICE
 import android.content.pm.PackageManager
 import android.location.Location
@@ -14,12 +15,14 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.location.*
+import com.google.android.gms.maps.CameraUpdate
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.riding.tracker.R
 import com.riding.tracker.databinding.CurrentRideFragmentBinding
 
@@ -75,7 +78,6 @@ class CurrentRideFragment : Fragment(), OnMapReadyCallback {
         if (checkForLocationPermission()) {
             getDeviceLocation()
         }
-
         return contentView
     }
 
@@ -85,6 +87,14 @@ class CurrentRideFragment : Fragment(), OnMapReadyCallback {
 
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
+
+        val fab: FloatingActionButton = view.findViewById(R.id.location_button)
+        fab.setOnClickListener {
+            cameraToCurrentLocation()
+        }
+        binding.sosButton.setOnClickListener {
+            sendSosMessage()
+        }
     }
 
 
@@ -92,7 +102,7 @@ class CurrentRideFragment : Fragment(), OnMapReadyCallback {
         inflater.inflate(R.menu.map_options, menu)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
         R.id.normal_map -> {
             map.mapType = GoogleMap.MAP_TYPE_NORMAL
             true
@@ -107,6 +117,10 @@ class CurrentRideFragment : Fragment(), OnMapReadyCallback {
         }
         R.id.terrain_map -> {
             map.mapType = GoogleMap.MAP_TYPE_TERRAIN
+            true
+        }
+        R.id.about -> {
+            viewModel.aboutDialog(requireContext())
             true
         }
         else -> super.onOptionsItemSelected(item)
@@ -161,6 +175,14 @@ class CurrentRideFragment : Fragment(), OnMapReadyCallback {
                     viewModel.showLocationPermissionErrorDialog(context)
                 }
         }
+    }
+
+    private fun cameraToCurrentLocation(){
+        getDeviceLocation()
+        map.moveCamera(CameraUpdateFactory.newLatLng(homeLatLng))
+    }
+
+    private fun sendSosMessage(){
     }
 
 
