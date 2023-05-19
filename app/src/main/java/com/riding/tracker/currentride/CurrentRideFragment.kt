@@ -9,6 +9,7 @@ import android.location.Location
 import android.location.LocationManager
 import android.os.Bundle
 import android.view.*
+import android.webkit.PermissionRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -20,11 +21,13 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.riding.tracker.R
 import com.riding.tracker.databinding.CurrentRideFragmentBinding
+import java.security.Permission
 
 
 class CurrentRideFragment : Fragment(), OnMapReadyCallback {
@@ -171,15 +174,14 @@ class CurrentRideFragment : Fragment(), OnMapReadyCallback {
                     map.addMarker(MarkerOptions().position(currentPosition))
                     map.moveCamera(CameraUpdateFactory.newLatLngZoom(currentPosition, 15f))
                 }
-                .addOnFailureListener {
-                    viewModel.showLocationPermissionErrorDialog(context)
-                }
+        } else {
+            viewModel.showLocationPermissionErrorDialog(context)
         }
     }
 
     private fun cameraToCurrentLocation(){
-        getDeviceLocation()
-        map.moveCamera(CameraUpdateFactory.newLatLng(homeLatLng))
+            getDeviceLocation()
+            map.moveCamera(CameraUpdateFactory.newLatLng(homeLatLng))
     }
 
     private fun sendSosMessage(){
