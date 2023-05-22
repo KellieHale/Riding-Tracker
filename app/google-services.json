@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "160193425091",
+    "project_id": "riding-tracker-c8d56",
+    "storage_bucket": "riding-tracker-c8d56.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:160193425091:android:f7f64018e3d6892811fc76",
+        "android_client_info": {
+          "package_name": "com.riding.tracker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "160193425091-0cphgofgnekpii2kmn0ifmjfp2j68rm6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.riding.tracker",
+            "certificate_hash": "d5596d40b68916e0e4cd99765777b948e7749dc8"
+          }
+        },
+        {
+          "client_id": "160193425091-asib5o0tvgc3d9a2jr0f3917vk1blsbi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFmdz03o96VcDrRA2HR0OGq9habQ1mMbo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "160193425091-asib5o0tvgc3d9a2jr0f3917vk1blsbi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
