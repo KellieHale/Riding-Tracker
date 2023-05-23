@@ -20,12 +20,15 @@ import androidx.activity.result.contract.ActivityResultContracts.RequestPermissi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SwitchCompat
 import androidx.core.content.ContextCompat
+import androidx.core.content.PermissionChecker
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.permissionx.guolindev.PermissionX.isGranted
+import com.riding.tracker.NotificationUtil
 import com.riding.tracker.R
 import com.riding.tracker.roomdb.DatabaseHelper
 import com.riding.tracker.roomdb.DatabaseHelper.deleteGuardian
@@ -37,13 +40,17 @@ class GuardiansFragment : Fragment() {
     private lateinit var contentView: View
     private lateinit var adapter: GuardiansAdapter
 
+    private val notificationUtils = NotificationUtil()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         contentView = inflater.inflate(R.layout.guardians, container, false)
+
         setHasOptionsMenu(true)
+
         return contentView
     }
 
@@ -62,6 +69,19 @@ class GuardiansFragment : Fragment() {
         })
         recyclerView.adapter = adapter
         addDivider(recyclerView)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        setupObservers()
+    }
+
+    private fun setupObservers() {
+        notificationUtils.onContactPermissionsUpdated.observe(this) { allGranted ->
+            if (allGranted) {
+                showContacts()
+            }
+        }
     }
 
     private fun showDeleteGuardianDialog(guardianId: Int) {
@@ -105,51 +125,15 @@ class GuardiansFragment : Fragment() {
         }
 
     private fun showContacts() {
-        val contactPickerIntent = Intent(
-            Intent.ACTION_PICK,
-            ContactsContract.Contacts.CONTENT_URI
-        )
-        resultLauncher.launch(contactPickerIntent)
-    }
-
-    private val requestPermissionLauncher =
-        registerForActivityResult(
-            RequestPermission()
-        ) { isGranted: Boolean ->
-            if (isGranted) {
-                showContacts()
-            } else {
-                showContactsPermissionErrorDialog()
-            }
+        if (notificationUtils.areContactPermissionsGranted(requireContext())) {
+            val contactPickerIntent = Intent(
+                Intent.ACTION_PICK,
+                ContactsContract.Contacts.CONTENT_URI
+            )
+            resultLauncher.launch(contactPickerIntent)
+        } else {
+            notificationUtils.requestContactPermissions(this)
         }
-
-    private fun checkForContactsPermission() {
-        when {
-            ContextCompat.checkSelfPermission(
-                requireContext(),
-                Manifest.permission.READ_CONTACTS
-            ) == PackageManager.PERMISSION_GRANTED -> {
-                showContacts()
-            }
-            shouldShowRequestPermissionRationale("") -> {
-                showImportContactError()
-            }
-            else -> {
-                requestPermissionLauncher.launch(
-                    Manifest.permission.READ_CONTACTS
-                )
-            }
-        }
-    }
-
-
-    @SuppressLint("SuspiciousIndentation")
-    private fun showContactsPermissionErrorDialog() {
-        val builder = AlertDialog.Builder(requireContext())
-        builder.setTitle(getString(R.string.permission_denied))
-        builder.setMessage(getString(R.string.contacts_error_dialogue))
-        builder.setPositiveButton(getString(R.string.ok), null)
-        builder.show()
     }
 
     @SuppressLint("SuspiciousIndentation")
@@ -231,7 +215,7 @@ class GuardiansFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.import_contact -> {
-                checkForContactsPermission()
+                showContacts()
             }
             R.id.add_guardian -> {
                 findNavController().navigate(R.id.startAddGuardiansFragment)

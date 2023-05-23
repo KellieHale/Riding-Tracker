@@ -15,7 +15,6 @@ import com.riding.tracker.R
 
 class CurrentRideViewModel: ViewModel() {
 
-    private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
 
     private val _latitude = MutableLiveData<Location>()
     val latitude: LiveData<Location>
@@ -29,27 +28,6 @@ class CurrentRideViewModel: ViewModel() {
     val currentLocation: LiveData<Location>
         get() = _currentLocation
 
-    private fun updateLocationUI(context: Context){
-        val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
-        startActivity(
-            context,
-            intent,
-            Bundle()
-        )
-    }
-
-    fun showLocationPermissionErrorDialog(context: Context?) {
-        val builder = AlertDialog.Builder(context)
-        builder.setTitle(R.string.location_permission_error_title)
-        builder.setMessage(R.string.location_permission_error_message)
-        builder.setPositiveButton(R.string.allow) { dialog, _ ->
-            context?.let { updateLocationUI(it) }
-            dialog.dismiss()
-        }
-        builder.setNegativeButton(R.string.deny, null)
-        builder.setNeutralButton(R.string.cancel, null)
-        builder.show()
-    }
 
     fun aboutDialog(context: Context) {
         val builder = AlertDialog.Builder(context)

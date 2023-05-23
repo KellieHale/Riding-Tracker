@@ -1,18 +1,12 @@
 package com.riding.tracker
 
-import android.content.Context
 import android.os.Bundle
-import android.util.AttributeSet
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
-import androidx.room.Room
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.riding.tracker.roomdb.AppDatabase
+import com.riding.tracker.currentride.CurrentRideFragment
 import com.riding.tracker.roomdb.DatabaseHelper
 
 
