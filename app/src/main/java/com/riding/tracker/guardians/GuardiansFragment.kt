@@ -1,11 +1,9 @@
 package com.riding.tracker.guardians
 
 
-import android.Manifest
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.database.Cursor
 import android.net.Uri
 import android.os.Bundle
@@ -13,22 +11,16 @@ import android.provider.ContactsContract
 import android.provider.ContactsContract.CommonDataKinds
 import android.provider.ContactsContract.Data
 import android.view.*
-import android.widget.Switch
-import android.widget.ToggleButton
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.activity.result.contract.ActivityResultContracts.RequestPermission
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.SwitchCompat
 import androidx.core.content.ContextCompat
-import androidx.core.content.PermissionChecker
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.permissionx.guolindev.PermissionX.isGranted
-import com.riding.tracker.NotificationUtil
+import com.riding.tracker.NotificationHelper
 import com.riding.tracker.R
 import com.riding.tracker.roomdb.DatabaseHelper
 import com.riding.tracker.roomdb.DatabaseHelper.deleteGuardian
@@ -40,7 +32,7 @@ class GuardiansFragment : Fragment() {
     private lateinit var contentView: View
     private lateinit var adapter: GuardiansAdapter
 
-    private val notificationUtils = NotificationUtil()
+    private val notificationUtils = NotificationHelper()
 
     override fun onCreateView(
         inflater: LayoutInflater,

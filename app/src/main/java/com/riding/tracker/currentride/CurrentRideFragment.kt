@@ -15,9 +15,11 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.riding.tracker.NotificationUtil
+import com.riding.tracker.NotificationHelper
 import com.riding.tracker.R
+import com.riding.tracker.currentride.SosNotificationUtil.Companion.notifyGuardian
 import com.riding.tracker.databinding.CurrentRideFragmentBinding
+import com.riding.tracker.roomdb.DatabaseHelper
 
 
 class CurrentRideFragment : Fragment(), OnMapReadyCallback {
@@ -39,8 +41,7 @@ class CurrentRideFragment : Fragment(), OnMapReadyCallback {
 
     private var homeLatLng = LatLng(latitude, longitude)
 
-    private val notificationUtil = NotificationUtil()
-    private val sosNotificationUtil = SosNotificationUtil()
+    private val notificationHelper = NotificationHelper()
 
 
     override fun onCreateView(
@@ -48,13 +49,14 @@ class CurrentRideFragment : Fragment(), OnMapReadyCallback {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
         binding = CurrentRideFragmentBinding.inflate(layoutInflater)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireContext())
 
-
         contentView = inflater.inflate(R.layout.maplayout, container, false)
+
         setHasOptionsMenu(true)
 
         currentRideObservers()
@@ -120,7 +122,7 @@ class CurrentRideFragment : Fragment(), OnMapReadyCallback {
     }
 
     private fun currentRideObservers() {
-        notificationUtil.onLocationPermissionsUpdated.observe(viewLifecycleOwner) {allGranted ->
+        notificationHelper.onLocationPermissionsUpdated.observe(viewLifecycleOwner) { allGranted ->
             if (allGranted) {
                 getDeviceLocation()
             }
@@ -134,7 +136,7 @@ class CurrentRideFragment : Fragment(), OnMapReadyCallback {
 
     @SuppressLint("MissingPermission")
     private fun getDeviceLocation() {
-        if (notificationUtil.areLocationPermissionsGranted(requireContext())) {
+        if (notificationHelper.areLocationPermissionsGranted(requireContext())) {
             fusedLocationProviderClient.lastLocation
                 .addOnSuccessListener { location: Location ->
                     latitude = location.latitude
@@ -145,7 +147,7 @@ class CurrentRideFragment : Fragment(), OnMapReadyCallback {
                     map.moveCamera(CameraUpdateFactory.newLatLngZoom(currentPosition, 15f))
                 }
         } else {
-            notificationUtil.requestLocationPermissions(this)
+            notificationHelper.requestLocationPermissions(this)
         }
     }
 
@@ -156,12 +158,10 @@ class CurrentRideFragment : Fragment(), OnMapReadyCallback {
 
 
     private fun sendSosMessage(){
-        if (notificationUtil.areSosPermissionsGranted(requireContext())) {
-            sosNotificationUtil.callGuardian()
-            sosNotificationUtil.textGuardian()
-            sosNotificationUtil.notifyGuardian()
+        if (notificationHelper.areSosPermissionsGranted(requireContext())) {
+            notifyGuardian(requireActivity(), DatabaseHelper.getAllGuardians())
         } else {
-            notificationUtil.requestSosPermissions(this)
+            notificationHelper.requestSosPermissions(this)
         }
     }
 

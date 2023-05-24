@@ -2,12 +2,11 @@ package com.riding.tracker
 
 import android.Manifest.permission.*
 import android.content.Context
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import com.permissionx.guolindev.PermissionX
 
-class NotificationUtil {
+class NotificationHelper {
 
     //PermissionX is an extension library that handles permission requests
     // and any background work required for permissions.
