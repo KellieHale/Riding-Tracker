@@ -2,7 +2,12 @@ package com.riding.tracker.currentride
 
 import android.app.Activity
 import android.content.Intent
+import android.location.Location
 import android.net.Uri
+import android.provider.Telephony
+import android.telephony.SmsManager
+import androidx.core.os.bundleOf
+import com.riding.tracker.R
 import com.riding.tracker.roomdb.guardians.Guardian
 
 
@@ -12,12 +17,8 @@ class SosNotificationUtil{
         private fun callGuardian(activity: Activity, phoneNumber: String) {
             val dial = "tel:$phoneNumber"
             activity.startActivity(Intent(Intent.ACTION_CALL, Uri.parse(dial)))
-            //TODO: check if call is actively going on to make call
-        }
 
-        private fun textGuardian(activity: Activity, phoneNumber: String) {
-
-
+            queuePhoneCalls()
         }
 
         fun notifyGuardian(activity: Activity, guardians: List<Guardian>) {
@@ -25,10 +26,13 @@ class SosNotificationUtil{
                 if (guardian.broadcast) {
                     guardian.phoneNumber?.let { phoneNumber ->
                         callGuardian(activity, phoneNumber)
-                        textGuardian(activity, phoneNumber)
                     }
                 }
             }
         }
+        private fun queuePhoneCalls() {
+            //TODO: check if call is actively going on to make call
+        }
     }
+
 }

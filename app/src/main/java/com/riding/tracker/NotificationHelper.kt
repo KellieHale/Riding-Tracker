@@ -22,8 +22,7 @@ class NotificationHelper {
         ACCESS_COARSE_LOCATION)
     private val sosPermissions = listOf(READ_PHONE_STATE,
         READ_CONTACTS,
-        CALL_PHONE,
-        SEND_SMS)
+        CALL_PHONE)
 
     fun areContactPermissionsGranted(context: Context): Boolean {
         return PermissionX.isGranted(context, READ_CONTACTS)
@@ -86,7 +85,6 @@ class NotificationHelper {
     fun areSosPermissionsGranted(context: Context): Boolean {
         return PermissionX.isGranted(context, READ_PHONE_STATE)
                 && PermissionX.isGranted(context, READ_CONTACTS)
-                && PermissionX.isGranted(context, SEND_SMS)
                 && PermissionX.isGranted(context, CALL_PHONE)
     }
     fun requestSosPermissions(fragment: Fragment) {

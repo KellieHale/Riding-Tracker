@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.location.Location
 import android.os.Bundle
 import android.view.*
+import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -52,14 +53,16 @@ class CurrentRideFragment : Fragment(), OnMapReadyCallback {
 
         binding = CurrentRideFragmentBinding.inflate(layoutInflater)
         binding.lifecycleOwner = viewLifecycleOwner
-        binding.viewModel = viewModel
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireContext())
 
         contentView = inflater.inflate(R.layout.maplayout, container, false)
 
         setHasOptionsMenu(true)
-
         currentRideObservers()
+
+        binding.sosButton.setOnClickListener {
+            sendSosMessage()
+        }
 
         return contentView
     }
@@ -75,7 +78,8 @@ class CurrentRideFragment : Fragment(), OnMapReadyCallback {
         fab.setOnClickListener {
             cameraToCurrentLocation()
         }
-        binding.sosButton.setOnClickListener {
+        val sosButton: Button = view.findViewById(R.id.sos_button)
+        sosButton.setOnClickListener {
             sendSosMessage()
         }
     }
@@ -119,6 +123,7 @@ class CurrentRideFragment : Fragment(), OnMapReadyCallback {
     override fun onResume() {
         super.onResume()
         currentRideObservers()
+        getDeviceLocation()
     }
 
     private fun currentRideObservers() {
@@ -127,11 +132,6 @@ class CurrentRideFragment : Fragment(), OnMapReadyCallback {
                 getDeviceLocation()
             }
         }
-//        notificationUtil.onSosPermissionsUpdated.observe(viewLifecycleOwner) {allGranted ->
-//            if (allGranted) {
-//                sendSosMessage()
-//            }
-//        }
     }
 
     @SuppressLint("MissingPermission")

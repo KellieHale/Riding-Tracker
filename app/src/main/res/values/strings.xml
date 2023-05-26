@@ -63,6 +63,9 @@
     <string name="about_title">How to Use the App</string>
     <string name="about_message">Users can create a profile, Import Contacts/Create New Contacts(Guardians), and send SOS messages to selected Guardians should you get in trouble.</string>
     <string name="sos">SOS</string>
+    <string name="start_ride">Start Ride</string>
+    <string name="finish_ride">Finish Ride</string>
+    <string name="feature_not_available">Feature Not Yet Available</string>
 
 
 </resources>

@@ -15,20 +15,6 @@ import com.riding.tracker.R
 
 class CurrentRideViewModel: ViewModel() {
 
-
-    private val _latitude = MutableLiveData<Location>()
-    val latitude: LiveData<Location>
-        get() = _latitude
-
-    private val _longitude = MutableLiveData<Location>()
-    val longitude: LiveData<Location>
-        get() = _longitude
-
-    private val _currentLocation = MutableLiveData<Location>()
-    val currentLocation: LiveData<Location>
-        get() = _currentLocation
-
-
     fun aboutDialog(context: Context) {
         val builder = AlertDialog.Builder(context)
         builder.setTitle(R.string.about_title)
@@ -36,5 +22,6 @@ class CurrentRideViewModel: ViewModel() {
         builder.setNeutralButton(R.string.ok, null)
         builder.show()
     }
+
 
 }

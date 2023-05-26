@@ -10,12 +10,17 @@ import androidx.fragment.app.Fragment
 import com.riding.tracker.R
 
 class SettingsFragment : Fragment() {
+
+    private lateinit var contentView: View
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return super.onCreateView(inflater, container, savedInstanceState)
+    ): View {
+        contentView = inflater.inflate(R.layout.settings_fragment, container, false)
+
+        return contentView
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
