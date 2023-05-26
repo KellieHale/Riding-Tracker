@@ -58,4 +58,8 @@
             app:destination="@id/guardiansFragment" />
 
     </fragment>
+    <fragment
+        android:id="@+id/motorcycleNewsFragment"
+        android:name="com.riding.tracker.motorcycleNews.MotorcycleNewsFragment"
+        android:label="MotorcycleNewsFragment" />
 </navigation>

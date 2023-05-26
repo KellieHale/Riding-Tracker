@@ -66,6 +66,7 @@
     <string name="start_ride">Start Ride</string>
     <string name="finish_ride">Finish Ride</string>
     <string name="feature_not_available">Feature Not Yet Available</string>
+    <string name="news">News</string>
 
 
 </resources>
