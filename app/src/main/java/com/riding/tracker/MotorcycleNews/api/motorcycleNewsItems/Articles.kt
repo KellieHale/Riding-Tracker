@@ -1,4 +1,4 @@
-package com.riding.tracker.roomdb.motorcycleNews
+package com.riding.tracker.motorcycleNews.api.motorcycleNewsItems
 
 import org.simpleframework.xml.Element
 import org.simpleframework.xml.Root

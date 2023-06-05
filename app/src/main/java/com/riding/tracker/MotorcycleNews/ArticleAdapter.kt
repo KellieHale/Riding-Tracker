@@ -7,7 +7,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.riding.tracker.R
 import com.riding.tracker.databinding.ArticleRowBinding
-import com.riding.tracker.roomdb.motorcycleNews.Articles
+import com.riding.tracker.motorcycleNews.api.motorcycleNewsItems.Articles
 
 class ArticleAdapter (val onItemClicked: (Articles) -> Unit):
     RecyclerView.Adapter<ArticleAdapter.ArticleViewHolder>() {

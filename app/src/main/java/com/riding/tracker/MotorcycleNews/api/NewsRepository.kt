@@ -1,6 +1,6 @@
-package com.riding.tracker.roomdb.motorcycleNews
+package com.riding.tracker.motorcycleNews.api
 
-import com.riding.tracker.motorcycleNews.api.NetworkHelper
+import com.riding.tracker.motorcycleNews.api.motorcycleNewsItems.Feed
 
 
 class NewsRepository {
