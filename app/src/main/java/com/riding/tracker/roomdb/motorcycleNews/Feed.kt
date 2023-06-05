@@ -6,7 +6,7 @@ import org.simpleframework.xml.Path
 import org.simpleframework.xml.Root
 
 @Root(name = "channel", strict = false)
-data class Feed @JvmOverloads constructor(
+data class Feed (
     @field:Element(name = "title")
     @param:Element(name = "title")
     @field:Path("channel")

@@ -4,8 +4,6 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.riding.tracker.roomdb.guardians.Guardian
 import com.riding.tracker.roomdb.guardians.GuardianDao
-import com.riding.tracker.roomdb.motorcycleNews.Articles
-import com.riding.tracker.roomdb.motorcycleNews.MotorcycleNewsDao
 import com.riding.tracker.roomdb.profile.Profile
 import com.riding.tracker.roomdb.profile.ProfileDao
 
