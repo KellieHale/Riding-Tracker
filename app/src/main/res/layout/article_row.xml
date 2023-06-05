@@ -32,7 +32,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{article.link.toString()}"
-            android:textColor="#808080"
+            android:textColor="@color/red"
+            android:autoLink="web"
             android:textSize="20sp"
             android:padding="16dp"/>
     </LinearLayout>

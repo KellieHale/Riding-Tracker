@@ -1,5 +1,6 @@
 package com.riding.tracker.motorcycleNews
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
@@ -37,6 +38,7 @@ class ArticleAdapter (val onItemClicked: (Articles) -> Unit):
         holder.articleName.text = article.title
         holder.articleDesc.text = article.description
         holder.articleLink.text = article.link.toString()
+        holder.articleLink.setLinkTextColor(Color.BLUE)
         holder.articleLink.setOnClickListener {
             onItemClicked(feed[position])
         }
