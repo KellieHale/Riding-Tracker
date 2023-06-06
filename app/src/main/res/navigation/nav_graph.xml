@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/currentRideFragment">
+    app:startDestination="@id/loginFragment">
 
     <fragment
         android:id="@+id/currentRideFragment"
@@ -60,6 +60,14 @@
     </fragment>
     <fragment
         android:id="@+id/motorcycleNewsFragment"
-        android:name="com.riding.tracker.motorcycleNews.MotorcycleNewsFragment"
+        android:name="com.riding.tracker.motorcyclenews.MotorcycleNewsFragment"
         android:label="MotorcycleNewsFragment" />
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.riding.tracker.login.LoginFragment"
+        android:label="LoginFragment" >
+        <action
+            android:id="@+id/action_loginFragment_to_currentRideFragment"
+            app:destination="@id/currentRideFragment" />
+    </fragment>
 </navigation>

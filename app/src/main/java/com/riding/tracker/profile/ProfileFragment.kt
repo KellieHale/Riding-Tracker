@@ -1,19 +1,11 @@
 package com.riding.tracker.profile
 
-import android.content.Context
 import android.os.Bundle
-import android.util.AttributeSet
 import android.view.*
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.findFragment
-import androidx.lifecycle.whenStarted
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
-import androidx.room.Database
-import com.riding.tracker.MainActivity
 import com.riding.tracker.R
 import com.riding.tracker.roomdb.DatabaseHelper
 

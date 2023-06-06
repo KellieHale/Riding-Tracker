@@ -2,7 +2,6 @@ package com.riding.tracker.guardians
 
 
 import android.os.Bundle
-import android.provider.ContactsContract.CommonDataKinds.Email
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment

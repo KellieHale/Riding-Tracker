@@ -1,6 +1,6 @@
-package com.riding.tracker.motorcycleNews.api
+package com.riding.tracker.motorcyclenews.api
 
-import com.riding.tracker.motorcycleNews.api.motorcycleNewsItems.Feed
+import com.riding.tracker.motorcyclenews.api.motorcycleNewsItems.Feed
 import retrofit2.http.GET
 
 interface MotorcycleNewsApiService {

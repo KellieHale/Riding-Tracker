@@ -67,6 +67,10 @@
     <string name="finish_ride">Finish Ride</string>
     <string name="feature_not_available">Feature Not Yet Available</string>
     <string name="news">News</string>
+    <string name="welcome_to_riding_tracker">Welcome to Riding Tracker!</string>
+    <string name="safe_ride">Your app for a safe ride</string>
+    <string name="login">Login</string>
+    <string name="rider">rider</string>
 
 
 </resources>

@@ -1,4 +1,4 @@
-package com.riding.tracker.motorcycleNews
+package com.riding.tracker.motorcyclenews
 
 import android.os.Bundle
 import android.view.LayoutInflater

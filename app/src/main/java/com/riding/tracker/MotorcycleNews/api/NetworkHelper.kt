@@ -1,4 +1,4 @@
-package com.riding.tracker.motorcycleNews.api
+package com.riding.tracker.motorcyclenews.api
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

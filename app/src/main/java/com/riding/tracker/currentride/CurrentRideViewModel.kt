@@ -2,15 +2,7 @@ package com.riding.tracker.currentride
 
 import android.app.AlertDialog
 import android.content.Context
-import android.content.Intent
-import android.location.Location
-import android.os.Bundle
-import android.provider.Settings
-import androidx.core.content.ContextCompat.startActivity
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.google.android.gms.location.FusedLocationProviderClient
 import com.riding.tracker.R
 
 class CurrentRideViewModel: ViewModel() {

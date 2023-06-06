@@ -2,12 +2,7 @@ package com.riding.tracker.currentride
 
 import android.app.Activity
 import android.content.Intent
-import android.location.Location
 import android.net.Uri
-import android.provider.Telephony
-import android.telephony.SmsManager
-import androidx.core.os.bundleOf
-import com.riding.tracker.R
 import com.riding.tracker.roomdb.guardians.Guardian
 
 

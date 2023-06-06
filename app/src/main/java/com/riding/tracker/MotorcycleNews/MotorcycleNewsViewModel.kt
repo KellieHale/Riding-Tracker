@@ -1,10 +1,10 @@
-package com.riding.tracker.motorcycleNews
+package com.riding.tracker.motorcyclenews
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.riding.tracker.motorcycleNews.api.motorcycleNewsItems.Articles
-import com.riding.tracker.motorcycleNews.api.NewsRepository
+import com.riding.tracker.motorcyclenews.api.NewsRepository
+import com.riding.tracker.motorcyclenews.api.motorcycleNewsItems.Articles
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 

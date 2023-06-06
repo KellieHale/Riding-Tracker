@@ -1,4 +1,4 @@
-package com.riding.tracker.motorcycleNews
+package com.riding.tracker.motorcyclenews
 
 import android.graphics.Color
 import android.view.LayoutInflater
@@ -8,7 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.riding.tracker.R
 import com.riding.tracker.databinding.ArticleRowBinding
-import com.riding.tracker.motorcycleNews.api.motorcycleNewsItems.Articles
+import com.riding.tracker.motorcyclenews.api.motorcycleNewsItems.Articles
 
 class ArticleAdapter (val onItemClicked: (Articles) -> Unit):
     RecyclerView.Adapter<ArticleAdapter.ArticleViewHolder>() {
