@@ -52,4 +52,5 @@ class ProfileFragment : Fragment() {
             else -> super.onOptionsItemSelected(item)
         }
     }
+
 }

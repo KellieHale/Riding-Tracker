@@ -52,6 +52,7 @@ class MotorcycleNewsFragment: Fragment() {
             articles?.let { adapter.setArticles(it) }
         }
         viewModel.fetchFeed()
+
     }
 
     private fun addDivider() {

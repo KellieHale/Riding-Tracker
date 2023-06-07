@@ -9,7 +9,7 @@ import com.google.android.material.textfield.TextInputEditText
 import com.riding.tracker.R
 import com.riding.tracker.roomdb.DatabaseHelper
 
-class EditProfileFragment : Fragment() {
+class CreateProfileFragment : Fragment() {
     private lateinit var contentView: View
 
     override fun onCreateView(
