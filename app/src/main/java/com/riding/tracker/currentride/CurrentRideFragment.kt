@@ -97,6 +97,9 @@ class CurrentRideFragment : Fragment(), OnMapReadyCallback {
         val startButton: AppCompatButton = view.findViewById(R.id.start_ride)
         val stopButton: AppCompatButton = view.findViewById(R.id.end_ride)
 
+        sosButton.isVisible = false
+        stopButton.isVisible = false
+
         sosButton.setOnClickListener {
             sendSosMessage()
         }
