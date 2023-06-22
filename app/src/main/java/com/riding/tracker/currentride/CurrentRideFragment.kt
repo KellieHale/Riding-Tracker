@@ -1,11 +1,13 @@
 package com.riding.tracker.currentride
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.location.Location
 import android.os.Bundle
 import android.view.*
-import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatButton
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.location.*
@@ -16,6 +18,7 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.snackbar.Snackbar
 import com.riding.tracker.NotificationHelper
 import com.riding.tracker.R
 import com.riding.tracker.currentride.SosNotificationUtil.Companion.notifyGuardian
@@ -36,6 +39,8 @@ class CurrentRideFragment : Fragment(), OnMapReadyCallback {
     private lateinit var contentView: View
 
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
+    private lateinit var locationManager: LocationTrackingFragment
+    private var locationTrackingRequest = false
 
     private var latitude: Double = 0.0
     private var longitude: Double = 0.0
@@ -43,6 +48,14 @@ class CurrentRideFragment : Fragment(), OnMapReadyCallback {
     private var homeLatLng = LatLng(latitude, longitude)
 
     private val notificationHelper = NotificationHelper()
+
+    private val locationCallback = object : LocationCallback() {
+        override fun onLocationResult(locationResult: LocationResult) {
+            for (location in locationResult.locations) {
+            homeLatLng = LatLng(location.latitude, location.longitude)
+            }
+        }
+    }
 
 
     override fun onCreateView(
@@ -54,6 +67,7 @@ class CurrentRideFragment : Fragment(), OnMapReadyCallback {
         binding = CurrentRideFragmentBinding.inflate(layoutInflater)
         binding.lifecycleOwner = viewLifecycleOwner
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireContext())
+        locationManager = LocationTrackingFragment(activity as Context)
 
         contentView = inflater.inflate(R.layout.maplayout, container, false)
 
@@ -78,9 +92,31 @@ class CurrentRideFragment : Fragment(), OnMapReadyCallback {
         fab.setOnClickListener {
             cameraToCurrentLocation()
         }
-        val sosButton: Button = view.findViewById(R.id.sos_button)
+
+        val sosButton: AppCompatButton = view.findViewById(R.id.sos_button)
+        val startButton: AppCompatButton = view.findViewById(R.id.start_ride)
+        val stopButton: AppCompatButton = view.findViewById(R.id.end_ride)
+
         sosButton.setOnClickListener {
             sendSosMessage()
+        }
+
+        startButton.setOnClickListener {
+            locationManager.trackLocation(locationCallback)
+            locationTrackingRequest = true
+            startButton.isVisible = false
+            stopButton.isVisible = true
+            sosButton.isVisible = true
+            Snackbar.make(startButton, "Your Ride Has Started", Snackbar.LENGTH_LONG).show()
+        }
+
+        stopButton.setOnClickListener {
+            locationManager.stopTrackingLocation()
+            locationTrackingRequest = false
+            startButton.isVisible = true
+            stopButton.isVisible = false
+            sosButton.isVisible = false
+            Snackbar.make(stopButton, "Your Ride Has Ended", Snackbar.LENGTH_LONG).show()
         }
     }
 
@@ -156,7 +192,6 @@ class CurrentRideFragment : Fragment(), OnMapReadyCallback {
             map.moveCamera(CameraUpdateFactory.newLatLng(homeLatLng))
     }
 
-
     private fun sendSosMessage(){
         if (notificationHelper.areSosPermissionsGranted(requireContext())) {
             notifyGuardian(requireActivity(), DatabaseHelper.getAllGuardians())
@@ -164,7 +199,6 @@ class CurrentRideFragment : Fragment(), OnMapReadyCallback {
             notificationHelper.requestSosPermissions(this)
         }
     }
-
 
 
 }

@@ -15,5 +15,4 @@ class CurrentRideViewModel: ViewModel() {
         builder.show()
     }
 
-
 }

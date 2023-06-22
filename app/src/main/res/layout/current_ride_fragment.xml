@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
@@ -7,7 +8,7 @@
             type="com.riding.tracker.currentride.CurrentRideFragment" />
     </data>
 
-    <androidx.constraintlayout.motion.widget.MotionLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layoutDescription="@xml/current_ride_fragment_scene">
@@ -27,10 +28,11 @@
             android:text="@string/sos"
             android:textColor="@color/red"
             android:textSize="50sp"
-            app:layout_constraintTop_toTopOf="@id/start_ride"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/guideline"
-            app:layout_constraintStart_toStartOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/start_ride" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/start_ride"
@@ -40,10 +42,10 @@
             android:textSize="40sp"
             android:background="@color/red"
             android:textColor="@color/white"
+            android:padding="@dimen/fab_margin"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent"/>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/end_ride"
@@ -53,7 +55,8 @@
             android:textSize="40sp"
             android:background="@color/red"
             android:textColor="@color/white"
-            app:layout_constraintTop_toTopOf="@id/sos_button"
+            android:visibility="invisible"
+            app:layout_constraintTop_toTopOf="@id/start_ride"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/guideline" />
@@ -71,5 +74,5 @@
             app:layout_constraintTop_toTopOf="parent"
             app:rippleColor="@color/black" />
 
-    </androidx.constraintlayout.motion.widget.MotionLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
 
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
-        supportActionBar?.title = ""
+        supportActionBar?.title = "Riding Tracker"
 
         DatabaseHelper.setupDatabase(applicationContext)
     }
